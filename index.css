@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #ff80004c;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+section{
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px 0;
+    background-color: #f8f8f8;
+    min-height: calc(100% - 60px);
+    flex-grow: 1;
+}
+
+header {
+    background-color: #ff7f00;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 40px;
+}
+
+header .logo, .people {
+    border-radius: 50%;
+    height: 50px;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+header .logo img{
+    height: 100%;
+    transform: translateX(-5px);
+}
+
+header .people img{
+    height: 100%;
+    /* make background transparent */
+}
+
+main {
+    padding: 40px;
+}
+
+article {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    padding: 20px;
+}
+
+article img {
+    border-radius: 50%;
+    height: 50px;
+    margin-right: 20px;
+}
+
+p {
+    margin-top: 5px;
+    color: #666666;
+}
+
+.desc {
+    color: #333;
+}
+
+#blogs{
+    background-color: #ff80008b;
+    padding: 5px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+#blogs h2{
+    text-align: center;
+}
+
+#profile{
+    display: flex;
+    gap: 2rem;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* border: 2px solid red; */
+    width: 200px;
+
+}
+.profile-img{
+    height: 150px;
+    width: 150px;
+    /* border: 2px solid green; */
+    border-radius: 50%;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.profile-img img{
+    height: 100%;
+}
+
+.about {
+    /* border: 2px solid; */
+    width: 100%;
+    padding: 10px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.about p {
+    color: #333;
+    width: calc(50% - 20px);
+    min-width: max-content;
+    /* border: 2px solid green; */
+    color: #555;
+    font-size: 120%;
+}
+
+@media screen and (max-width: 900px) {
+    section{
+        margin: 0;
+    }
+}
