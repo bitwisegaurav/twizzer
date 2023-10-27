@@ -94,12 +94,13 @@
 
                 $result = mysqli_query($conn, $fetchQuery);
                 
-                while ($row = mysqli_fetch_assoc($result)) { 
+                while ($row = mysqli_fetch_assoc($result)) {
+
                     $data .= '
                     <article>
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
                         <div>
-                            <p>@'. $row["username"] . '</p>
+                            <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
                         </div>
                     </article>

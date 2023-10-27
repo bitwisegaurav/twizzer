@@ -29,8 +29,6 @@
                 $result = mysqli_query($conn, $fetchQuery);
                 
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // $name = mysqli_query($conn, "SELECT name FROM users WHERE username = '".$row['username']."'");
-                    // if(!$name) $name = "Someone";
                     $username = $row["username"];
                     $nameResult = mysqli_query($conn, "SELECT name FROM users WHERE username='$username'");
 
@@ -43,7 +41,7 @@
                     <article>
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
                         <div>
-                            <p>'. $name .' @'. $row["username"] . '</p>
+                            <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
                         </div>
                     </article>
