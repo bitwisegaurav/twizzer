@@ -25,7 +25,7 @@
                     <div class="profile-img">
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile picture">
                     </div>
-                    <p>@BitwiseGaurav</p>
+                    <p>@bitwisegaurav</p>
                 </div>
                 <div class="about">
                     <p>Name : Gaurav Mishra</p>
@@ -40,13 +40,29 @@
         </main>
         <div id="blogs">
             <h2>Blogs</h2>
-            <article>
-                <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
-                <div>
-                    <p>Gaurav Mishra @BitwiseGaurav</p>
-                    <p class="desc">Bitwisegaurav is a highly skilled full stack developer with a wide range of expertise in web development and programming. With a strong foundation in essential web technologies such as HTML, CSS, and JavaScript, Bitwisegaurav has built a reputation for delivering innovative and functional web solutions.</p>
-                </div>
-            </article>
+            <?php 
+                $conn = require('first.php');
+
+                $fetchQuery = "SELECT * FROM blogs WHERE username = 'bitwisegaurav' ORDER BY time DESC";
+
+                $data = "";
+
+                $result = mysqli_query($conn, $fetchQuery);
+                
+                while ($row = mysqli_fetch_assoc($result)) { 
+                    $data .= '
+                    <article>
+                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
+                        <div>
+                            <p>@'. $row["username"] . '</p>
+                            <p class="desc">'. $row["description"] .'</p>
+                        </div>
+                    </article>
+                    ';
+                }
+
+                echo $data;
+            ?>
         </div>
     </section>
 
