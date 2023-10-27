@@ -1,9 +1,33 @@
+<?php
+
+    $msg = "";
+    // if(isset($_POST['createblog'])){
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (isset($_POST['username']) && isset($_POST['description'])){
+            $username = $_POST['username'];
+            $description = $_POST['description'];
+
+            $conn = require('first.php');
+
+            $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
+
+            if(mysqli_query($conn, $insertQuery)){
+                $msg = "Blog created successfully";
+            }
+            else{
+                $msg = "Error creating blog" . mysqli_error();
+            }
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Blogesation</title>
+    <title>Create Blog - Blogesation</title>
     <style>
         body {
             font-family: sans-serif;
@@ -94,15 +118,16 @@
 </head>
 <body>
     <section>
-        <form>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Create Blog</h1>
+            <?php echo $msg ?>
             <div class="input-group">
                 <label for="username">Username :</label>
                 <input type="text" name="username" placeholder="Enter your username" >
                 <label for="description">Description :</label>
                 <textarea name="description" placeholder="Enter your username" ></textarea>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" name="createblog">Submit</button>
         </form>
     </section>
 </body>
