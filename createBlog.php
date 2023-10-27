@@ -1,7 +1,7 @@
 <?php
 
     $msg = "";
-    
+
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (isset($_POST['username']) && isset($_POST['description'])){
             $username = $_POST['username'];
@@ -12,6 +12,8 @@
             $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
 
             if(mysqli_query($conn, $insertQuery)){
+                $blogsvalue = mysqli_query($conn, "SELECT blogs FROM users WHERE username = '$username'");
+                $updateQuery = "UPDATE users SET blogs = '$blogsvalue' WHERE username = '$username'";
                 $msg = "Blog created successfully";
             }
             else{
@@ -122,8 +124,6 @@
             <h1>Create Blog</h1>
             <?php echo $msg ?>
             <div class="input-group">
-                <label for="username">Username :</label>
-                <input type="text" name="username" placeholder="Enter your username" required>
                 <label for="description">Description :</label>
                 <textarea name="description" placeholder="Enter your username" required></textarea>
             </div>

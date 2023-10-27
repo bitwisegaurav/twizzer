@@ -1,3 +1,58 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['username']) || !isset($_SESSION['password'])){
+        header('location: login.php');
+    } else {
+        $username = $_SESSION['username'];
+
+        $conn = require('first.php');
+
+        $fetchQuery = "SELECT * FROM users WHERE username = '$username'";
+
+        $result = mysqli_query($conn, $fetchQuery);
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_assoc($result);
+            $name = $row['name'];
+            $about = $row['about'];
+            $email = $row['email'];
+            $blogs = $row['blogs'];
+            $followers = $row['followers'];
+            $following = $row['following'];
+            $dob = $row['dob'];
+            $joined = $row['joined'];
+            $interval = date_diff(date_create($joined), date_create('now'));
+
+            $datejoined = '';
+            if ($interval->y != 0) {
+                $datejoined .= $interval->format('%y years ');
+            }
+            else if ($interval->m != 0) {
+                $datejoined .= $interval->format('%m months ');
+            }
+            else if ($interval->d != 0) {
+                $datejoined .= $interval->format('%d days ');
+            }
+            else if ($interval->h != 0) {
+                $datejoined .= $interval->format('%h hours ');
+            }
+            else if ($interval->i != 0) {
+                $datejoined .= $interval->format('%i mins ');
+            }
+            else if ($interval->s != 0) {
+                $datejoined .= $interval->format('%s secs ');
+            } else {
+                $datejoined = '0 secs';
+            }
+
+            $datejoined = trim($datejoined);
+
+        } else {
+            header('location: login.php');
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,38 +63,25 @@
 </head>
 <body>
     <section>
-        <header>
-            <a href="home.php" class="logo">
-                <img src="https://static.vecteezy.com/system/resources/previews/003/607/702/original/bubble-chat-icon-inside-orange-circle-with-long-shadow-using-for-presentation-website-and-application-vector.jpg" alt="Logo 1">
-            </a>
-            <h2>Blogesation</h2>
-            <button class="createBtn" style="padding: 10px 20px;border-radius: 10px;outline: none;border: none;background: white;">
-                <a href="createBlog.php" style="color: #ff7f00; text-decoration: none; cursor: pointer;">Create Blog</a>
-            </button>
-            <a href="#" class="people">
-                <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Logo 2">
-            </a>
-        </header>
+        <?php echo require('header.php') ?>
         
         <main>
             <div id="profile">
                 <div class="left">
-
                     <div class="profile-img">
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile picture">
                     </div>
-                    <p>@bitwisegaurav</p>
+                    <p>@<?php echo $username ?></p>
                 </div>
                 <div class="about">
-                    <p>Name : Gaurav Mishra</p>
-                    <p>Followers : 344</p>
-                    <p>About : 7.3.0</p>
-                    <p>Following : 458</p>
-                    <p id="blogsCount">Blogs : 0</p>
-                    <p>Joined on : 1 day ago</p>
+                    <p>Name : <?php echo $name ?></p>
+                    <p>Followers : <?php echo $followers ?></p>
+                    <p>About : <?php echo $about ?></p>
+                    <p>Following : <?php echo $following ?></p>
+                    <p id="blogsCount">Blogs : <?php echo $blogs ?></p>
+                    <p>Joined on : <?php echo $datejoined ?> ago</p>
                 </div>
             </div>
-            
         </main>
         <div id="blogs">
             <h2>Blogs</h2>
