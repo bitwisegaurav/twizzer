@@ -1,7 +1,7 @@
 <?php
 
     $msg = "";
-    // if(isset($_POST['createblog'])){
+    
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (isset($_POST['username']) && isset($_POST['description'])){
             $username = $_POST['username'];
@@ -15,7 +15,7 @@
                 $msg = "Blog created successfully";
             }
             else{
-                $msg = "Error creating blog" . mysqli_error();
+                $msg = "Error creating blog" . mysqli_error($conn);
             }
         }
     }
@@ -123,9 +123,9 @@
             <?php echo $msg ?>
             <div class="input-group">
                 <label for="username">Username :</label>
-                <input type="text" name="username" placeholder="Enter your username" >
+                <input type="text" name="username" placeholder="Enter your username" required>
                 <label for="description">Description :</label>
-                <textarea name="description" placeholder="Enter your username" ></textarea>
+                <textarea name="description" placeholder="Enter your username" required></textarea>
             </div>
             <button type="submit" name="createblog">Submit</button>
         </form>

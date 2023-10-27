@@ -1,3 +1,39 @@
+<?php
+    session_start();
+
+    $msg = "";
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (isset($_POST['username']) && isset($_POST['name']) && isset($_POST['about']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['dob'])){
+            $username = $_POST['username'];
+            $name = $_POST['name'];
+            $about = $_POST['about'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $dob = $_POST['dob'];
+
+            $conn = require('first.php');
+
+            $checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '$username'";
+            $checkUsernameResult = mysqli_query($conn,$checkUsernameQuery);
+            $checkUsernameRow = mysqli_fetch_assoc($checkUsernameResult);
+            if($checkUsernameRow > 0){
+                $msg = "Username already exists";
+            } else {
+                $insertUserQuery = "INSERT INTO users (username, name, about, email, password, blogs, followers, following, dob, joined) VALUES ('$username','$name','$about','$email','$password','0','0','0','$dob', '". date('Y-m-d') ."')";
+                
+                if(mysqli_query($conn, $insertUserQuery)){
+                    $_SESSION["username"] = $username;
+                    $_SESSION["password"] = $password;
+                    header('location: home.php');
+                }
+                else {
+                    $msg = "Error creating user" . mysqli_error($conn);
+                }
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +120,15 @@
             color: #999;
         }
 
-        button {
+        .btns{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        button, a {
+            display: grid;
+            place-items: center;
             padding: 10px 20px;
             background-color: #ff7f00;
             color: #fff;
@@ -92,10 +136,11 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
             font-size: 1rem;
         }
 
-        button:hover {
+        button:hover, a:hover {
             background-color: #c86400;
         }
 
@@ -108,35 +153,39 @@
 </head>
 <body>
     <section>
-        <form>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Sign Up</h1>
+            <?php echo $msg; ?>
             <div class="input-group">
                 <div class="inputBox">
                     <label for="username">Username :</label>
-                    <input type="text" name="username" placeholder="Enter your username" />
+                    <input type="text" name="username" placeholder="Enter your username" required/>
                 </div>
                 <div class="inputBox">
                     <label for="name">Name :</label>
-                    <input type="text" name="name" placeholder="Enter your name" />
+                    <input type="text" name="name" placeholder="Enter your name" required/>
                 </div>
                 <div class="inputBox">
                     <label for="about">About :</label>
-                    <input type="text" name="about" placeholder="Tell us about yourself" />
+                    <input type="text" name="about" placeholder="Tell us about yourself" required/>
                 </div>
                 <div class="inputBox">
                     <label for="email">Email :</label>
-                    <input type="email" name="email" placeholder="Enter your email" />
+                    <input type="email" name="email" placeholder="Enter your email" required/>
                 </div>
                 <div class="inputBox">
                     <label for="password">Password :</label>
-                    <input type="password" name="password" placeholder="Enter your password" />
+                    <input type="password" name="password" placeholder="Enter your password" required/>
                 </div>
                 <div class="inputBox">
                     <label for="dob">DOB :</label>
-                    <input type="date" name="dob" placeholder="Enter your date of birth" />
+                    <input type="date" name="dob" placeholder="Enter your date of birth" required/>
                 </div>
             </div>
-            <button type="submit">Submit</button>
+            <div class="btns">
+                <button type="submit">Submit</button>
+                <a href="login.php">Log In</a>
+            </div>
         </form>
     </section>
 </body>

@@ -1,3 +1,31 @@
+<?php
+    session_start();
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (isset($_POST['username']) && isset($_POST['password'])){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $conn = require('first.php');
+
+            $checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = '$username' && password = '$password'";
+
+            $result = mysqli_query($conn, $checkUserQuery);
+
+            $row = mysqli_fetch_assoc($result);
+
+            if($row['count'] > 0){
+                $_SESSION["username"] = $username;
+                $_SESSION["password"] = $password;
+                header('location: home.php');
+            }
+            else{
+                header('location: signup.php');
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +99,15 @@
             color: #999;
         }
 
-        button {
+        .btns{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        button, a {
+            display: grid;
+            place-items: center;
             padding: 10px 20px;
             background-color: #ff7f00; 
             color: #fff;
@@ -79,24 +115,29 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 16px;
         }
 
-        button:hover {
+        button:hover, a:hover {
             background-color: #c86400;
         }
     </style>
 </head>
 <body>
     <section>
-        <form>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Login</h1>
             <div class="input-group">
                 <label for="username">Username :</label>
-                <input type="text" name="username" placeholder="Enter your username" />
+                <input type="text" name="username" placeholder="Enter your username" required/>
                 <label for="password">Password :</label>
-                <input type="password" name="password" placeholder="Enter your password" />
+                <input type="password" name="password" placeholder="Enter your password" required/>
             </div>
-            <button type="submit">Submit</button>
+            <div class="btns">
+                <button type="submit">Submit</button>
+                <a href="signup.php">Sign Up</a>
+            </div>
         </form>
     </section>
 </body>
