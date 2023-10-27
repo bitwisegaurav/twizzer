@@ -14,8 +14,4 @@
             </article>
 
 
-INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), 'bitwisegaurav', 'Bitwisegaurav is a highly skilled full stack developer with a wide range of expertise in web development and programming. With a strong foundation in essential web technologies such as HTML, CSS, and JavaScript, Bitwisegaurav has built a reputation for delivering innovative and functional web solutions.')
-INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), 'bitwisegaurav', 'Embarked on a journey with #ReactJS and aced the basics! 🚀 Now, it’s time to bring ideas to life with some exciting projects. Stay tuned! #CodingJourney #WebDevelopment
-Profile')
-INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), 'bitwisegaurav', 'I made a password generator in React JS using hooks! It has options for length, numbers, and symbols, and it has copy and generate buttons. Check it out!')
-INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), 'bitwisegaurav', 'I made a currency converter in React JS using hooks! It allows you to convert between any two currencies, and it has a copy button so you can easily share the results. Check it out!')
+I created a todo list using React JS! It's simple, yet effective, and it helps me stay organized. Check it out! #reactjs #todolist #productivity
