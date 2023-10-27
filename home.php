@@ -28,12 +28,22 @@
 
                 $result = mysqli_query($conn, $fetchQuery);
                 
-                while ($row = mysqli_fetch_assoc($result)) { 
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // $name = mysqli_query($conn, "SELECT name FROM users WHERE username = '".$row['username']."'");
+                    // if(!$name) $name = "Someone";
+                    $username = $row["username"];
+                    $nameResult = mysqli_query($conn, "SELECT name FROM users WHERE username='$username'");
+
+                    if(mysqli_num_rows($nameResult) > 0) {
+                        $name = mysqli_fetch_assoc($nameResult)['name'];
+                    } else {
+                        $name = "Someone";
+                    }
                     $data .= '
                     <article>
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
                         <div>
-                            <p>@'. $row["username"] . '</p>
+                            <p>'. $name .' @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
                         </div>
                     </article>
