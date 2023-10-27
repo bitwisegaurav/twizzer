@@ -1,27 +1,33 @@
 <?php
+    session_start();
 
+    $username = $_SESSION['username'];
     $msg = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        if (isset($_POST['username']) && isset($_POST['description'])){
-            $username = $_POST['username'];
-            $description = $_POST['description'];
-
-            $conn = require('first.php');
-
-            $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
-
-            if(mysqli_query($conn, $insertQuery)){
-                $blogsvalue = mysqli_query($conn, "SELECT blogs FROM users WHERE username = '$username'");
-                $updateQuery = "UPDATE users SET blogs = '$blogsvalue' WHERE username = '$username'";
-                $msg = "Blog created successfully";
-            }
-            else{
-                $msg = "Error creating blog" . mysqli_error($conn);
+    if(!$username){
+        header('location: login.php');
+    } else {
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            if (isset($_POST['description'])){
+                $description = $_POST['description'];
+                
+                $conn = require('first.php');
+                
+                $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
+                
+                if(mysqli_query($conn, $insertQuery)){
+                    $blogsvalue = mysqli_query($conn, "SELECT blogs FROM users WHERE username = '$username'");
+                    $updateQuery = "UPDATE users SET blogs = '$blogsvalue + 1' WHERE username = '$username'";
+                    $msg = "Blog created successfully";
+                }
+                else{
+                    $msg = "Error creating blog" . mysqli_error($conn);
+                }
             }
         }
+        header('location: createBlog.php');
     }
-
+        
 ?>
 
 <!DOCTYPE html>

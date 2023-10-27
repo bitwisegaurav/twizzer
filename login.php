@@ -12,9 +12,7 @@
 
             $result = mysqli_query($conn, $checkUserQuery);
 
-            $row = mysqli_fetch_assoc($result);
-
-            if($row['count'] > 0){
+            if($result > 0){
                 $_SESSION["username"] = $username;
                 $_SESSION["password"] = $password;
                 header('location: home.php');

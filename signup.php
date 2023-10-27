@@ -15,8 +15,7 @@
 
             $checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '$username'";
             $checkUsernameResult = mysqli_query($conn,$checkUsernameQuery);
-            $checkUsernameRow = mysqli_fetch_assoc($checkUsernameResult);
-            if($checkUsernameRow > 0){
+            if($checkUsernameResult > 0){
                 $msg = "Username already exists";
             } else {
                 $insertUserQuery = "INSERT INTO users (username, name, about, email, password, blogs, followers, following, dob, joined) VALUES ('$username','$name','$about','$email','$password','0','0','0','$dob', '". date('Y-m-d') ."')";
