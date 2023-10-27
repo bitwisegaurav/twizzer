@@ -20,7 +20,7 @@
         section {
             flex: 1;
             width: 100%;
-            max-width: 500px;
+            max-width: 800px;
             margin: 30px 0;
             background-color: #fff;
             border-radius: 10px;
@@ -47,17 +47,27 @@
 
         .input-group {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 3rem;
+            /* flex-direction: column; */
             width: 100%;
+        }
+        .input-group .inputBox{
+            display: grid;
+            gap: 1rem;
+            width: calc(50% - 2rem);
         }
 
         .input-group label {
+            display: flex;
+            width: 100%;
             font-weight: bold;
             color: #4e3b28;
         }
-
+        
         .input-group input {
+            display: flex;
             padding: 10px;
             border: 1px solid #ff7f00;
             border-radius: 5px;
@@ -88,6 +98,12 @@
         button:hover {
             background-color: #c86400;
         }
+
+        @media screen and (max-width: 668px) {
+            .input-group .inputBox{
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -95,18 +111,30 @@
         <form>
             <h1>Sign Up</h1>
             <div class="input-group">
-                <label for="username">Username :</label>
-                <input type="text" name="username" placeholder="Enter your username" />
-                <label for="name">Name :</label>
-                <input type="text" name="name" placeholder="Enter your name" />
-                <label for="about">About :</label>
-                <input type="text" name="about" placeholder="Tell us about yourself" />
-                <label for="email">Email :</label>
-                <input type="email" name="email" placeholder="Enter your email" />
-                <label for="password">Password :</label>
-                <input type="password" name="password" placeholder="Enter your password" />
-                <label for="dob">DOB :</label>
-                <input type="date" name="dob" placeholder="Enter your date of birth" />
+                <div class="inputBox">
+                    <label for="username">Username :</label>
+                    <input type="text" name="username" placeholder="Enter your username" />
+                </div>
+                <div class="inputBox">
+                    <label for="name">Name :</label>
+                    <input type="text" name="name" placeholder="Enter your name" />
+                </div>
+                <div class="inputBox">
+                    <label for="about">About :</label>
+                    <input type="text" name="about" placeholder="Tell us about yourself" />
+                </div>
+                <div class="inputBox">
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" placeholder="Enter your email" />
+                </div>
+                <div class="inputBox">
+                    <label for="password">Password :</label>
+                    <input type="password" name="password" placeholder="Enter your password" />
+                </div>
+                <div class="inputBox">
+                    <label for="dob">DOB :</label>
+                    <input type="date" name="dob" placeholder="Enter your date of birth" />
+                </div>
             </div>
             <button type="submit">Submit</button>
         </form>
