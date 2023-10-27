@@ -16,9 +16,12 @@ section{
     background-color: #f8f8f8;
     min-height: calc(100% - 60px);
     flex-grow: 1;
+    overflow-y: scroll;
 }
 
 header {
+    position: sticky;
+    top: 0;
     background-color: #ff7f00;
     color: white;
     display: flex;
@@ -87,6 +90,7 @@ p {
 
 #profile{
     display: flex;
+    justify-content: center;
     gap: 2rem;
 }
 
@@ -136,5 +140,8 @@ p {
 @media screen and (max-width: 900px) {
     section{
         margin: 0;
+    }
+    #profile{
+        flex-wrap: wrap;
     }
 }
