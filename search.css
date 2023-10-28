@@ -1,40 +1,45 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ff7f00;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 section {
   flex: 1;
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   max-height: calc(100vh - 60px);
-  margin: 30px 0;
+  /* margin: 30px 2rem; */
   background-color: #fff;
-  border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* overflow-y: scroll; */
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 /* Form Styles */
 form {
-  /* position: sticky;
-            top: 0; */
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2rem;
-  height: 100%;
+    position: relative;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    height: 100%;
+}
+
+form > a{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
 }
 
 form > h1 {
@@ -135,11 +140,12 @@ a:hover {
   margin: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 }
 
-.user-profile h2 {
+.user-profile h3 {
   margin: 0;
 }
 

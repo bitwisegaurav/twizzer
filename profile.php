@@ -1,56 +1,58 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION['username']) || !isset($_SESSION['password'])){
-        header('location: login.php');
-    } else {
-        $username = $_SESSION['username'];
-
-        $conn = require('first.php');
-
-        $fetchQuery = "SELECT * FROM users WHERE username = '$username'";
-
-        $result = mysqli_query($conn, $fetchQuery);
-        if(mysqli_num_rows($result) > 0){
-            $row = mysqli_fetch_assoc($result);
-            $name = $row['name'];
-            $about = $row['about'];
-            $email = $row['email'];
-            $blogs = $row['blogs'];
-            $followers = $row['followers'];
-            $following = $row['following'];
-            $dob = $row['dob'];
-            $joined = $row['joined'];
-            $interval = date_diff(date_create($joined), date_create('now'));
-
-            $datejoined = '';
-            if ($interval->y != 0) {
-                $datejoined .= $interval->format('%y years ');
-            }
-            else if ($interval->m != 0) {
-                $datejoined .= $interval->format('%m months ');
-            }
-            else if ($interval->d != 0) {
-                $datejoined .= $interval->format('%d days ');
-            }
-            else if ($interval->h != 0) {
-                $datejoined .= $interval->format('%h hours ');
-            }
-            else if ($interval->i != 0) {
-                $datejoined .= $interval->format('%i mins ');
-            }
-            else if ($interval->s != 0) {
-                $datejoined .= $interval->format('%s secs ');
-            } else {
-                $datejoined = '0 secs';
-            }
-
-            $datejoined = trim($datejoined);
-
-        } else {
-            header('location: login.php');
-        }
+    if(isset($_REQUEST['username'])){
+        $username = $_REQUEST['username'];
     }
+    else if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        $username = $_SESSION['username'];
+    } else {
+        header('location: login.php');
+        exit();
+    }
+
+    $conn = require('first.php');
+
+    $fetchQuery = "SELECT * FROM users WHERE username = '$username'";
+
+    $result = mysqli_query($conn, $fetchQuery);
+    if(mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['name'];
+        $about = $row['about'];
+        $email = $row['email'];
+        $blogs = $row['blogs'];
+        $followers = $row['followers'];
+        $following = $row['following'];
+        $dob = $row['dob'];
+        $joined = $row['joined'];
+        $interval = date_diff(date_create($joined), date_create('now'));
+
+        $datejoined = '';
+        if ($interval->y != 0) {
+            $datejoined .= $interval->format('%y years ');
+        }
+        else if ($interval->m != 0) {
+            $datejoined .= $interval->format('%m months ');
+        }
+        else if ($interval->d != 0) {
+            $datejoined .= $interval->format('%d days ');
+        }
+        else if ($interval->h != 0) {
+            $datejoined .= $interval->format('%h hours ');
+        }
+        else if ($interval->i != 0) {
+            $datejoined .= $interval->format('%i mins ');
+        }
+        else if ($interval->s != 0) {
+            $datejoined .= $interval->format('%s secs ');
+        } else {
+            $datejoined = '0 secs';
+        }
+
+        $datejoined = trim($datejoined);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +90,7 @@
             <?php 
                 $conn = require('first.php');
 
-                $fetchQuery = "SELECT * FROM blogs WHERE username = 'bitwisegaurav' ORDER BY time DESC";
+                $fetchQuery = "SELECT * FROM blogs WHERE username = '$username' ORDER BY time DESC";
 
                 $data = "";
 

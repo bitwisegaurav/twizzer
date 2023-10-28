@@ -7,7 +7,7 @@
             <div class="btns" style="display: flex; gap: 1rem;">
                     <a href="createBlog.php" style="width: 60px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;font-size: x-large;">+</a>
 
-                    <a href="createBlog.php" style="width: 60px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">🔍</a>
+                    <a href="search.php" style="width: 60px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">🔍</a>
             </div>
             <div class="links" style="display: flex; gap: 1rem; align-items: center">
                 <a href="profile.php" class="people" id="profile">

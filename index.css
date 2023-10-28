@@ -64,10 +64,17 @@ article {
     padding: 20px;
 }
 
-article img {
+article a {
     border-radius: 50%;
     height: 50px;
     margin-right: 20px;
+    text-decoration: none;
+    /* overflow: hidden; */
+}
+
+article a img{
+    border-radius: 50%;
+    height: 100%;
 }
 
 p {
@@ -85,7 +92,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    flex-grow: 1;
+    min-height: calc(100% - 22rem);
 }
 
 #blogs h2{
