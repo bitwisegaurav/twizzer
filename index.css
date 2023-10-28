@@ -46,11 +46,10 @@ header .people img{
     height: 100%;
     /* make background transparent */
 }
-header button {
-    padding: 10px 20px;
-    background-color: white;
-}
 
+header .btns{
+    display: flex;
+}
 
 main {
     padding: 40px;

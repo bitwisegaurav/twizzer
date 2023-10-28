@@ -1,30 +1,26 @@
 <?php
     session_start();
+    if (!isset($_SESSION['username']) || !isset($_SESSION['password'])) {
+        header('location: login.php');
+    }
+?>
 
-    $msg = "";
-    
-    // if (!isset($_SESSION['username'])) {
-    //     header('location: login.php');
-    // } else {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['description'])) {
-                $username = $_SESSION['username'];
-                $description = $_POST['description'];
-    
-                $conn = require('first.php');
-                $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
-    
-                if (mysqli_query($conn, $insertQuery)) {
-                    $updateQuery = "UPDATE users SET blogs = blogs + 1 WHERE username = '$username'";
-                    mysqli_query($conn, $updateQuery);
-                    $msg = "Blog created successfully";
-                } else {
-                    $msg = "Error creating blog" . mysqli_error($conn);
-                }
+<?php    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['description'])) {
+            $username = $_SESSION['username'];
+            $description = $_POST['description'];
+
+            $conn = require('first.php');
+            $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
+
+            if (mysqli_query($conn, $insertQuery)) {
+                $updateQuery = "UPDATE users SET blogs = blogs + 1 WHERE username = '$username'";
+                mysqli_query($conn, $updateQuery);header("Location:createBlog.php?info=added");
+            } else {
             }
         }
-    //     header('location: createBlog.php');
-    // }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -125,7 +121,12 @@
     <section>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Create Blog</h1>
-            <?php echo $msg ?>
+            <?php 
+                if(isset($_REQUEST['info'])){
+                    if($_REQUEST['info']=="added")
+                        echo "Blog Created Successfully!! ";
+                }
+            ?>
             <div class="input-group">
                 <label for="description">Description :</label>
                 <textarea name="description" placeholder="Enter your username" required></textarea>

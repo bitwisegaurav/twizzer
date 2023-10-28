@@ -117,5 +117,6 @@
     const blogs = document.querySelectorAll('#blogs article');
     const blogsCount = document.querySelector('#blogsCount');
     blogsCount.innerHTML = `Blogs : ${blogs.length}`;
+    document.querySelector('#profile').style.display = "none";
 </script>
 </html>

@@ -2,9 +2,10 @@
     session_start();
     if (!isset($_SESSION['username']) || !isset($_SESSION['password'])) {
         header('location: login.php');
+    } else {
+        $username = $_SESSION["username"];
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,27 +26,34 @@
                 $fetchQuery = "SELECT * FROM blogs ORDER BY time DESC";
 
                 $data = "";
-
+                $editBtnDiv = "";
                 $result = mysqli_query($conn, $fetchQuery);
                 
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $username = $row["username"];
-                    $nameResult = mysqli_query($conn, "SELECT name FROM users WHERE username='$username'");
+                    $user_name = $row["username"];
+                    $nameResult = mysqli_query($conn, "SELECT name FROM users WHERE username='$user_name'");
 
                     if(mysqli_num_rows($nameResult) > 0) {
                         $name = mysqli_fetch_assoc($nameResult)['name'];
                     } else {
                         $name = "Someone";
                     }
+                    if($username == $user_name) $editBtnDiv = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
+                    <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
+                    <button type="button" name="editbtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Edit</button>
+                    <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
+                    </form>';
+
                     $data .= '
                     <article>
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
-                        <div>
+                        <div style="width: 100%">
                             <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
-                        </div>
+                        '. $editBtnDiv .'</div>
                     </article>
                     ';
+                    $editBtnDiv = "";
                 }
 
                 echo $data;
@@ -53,5 +61,22 @@
         </main>
     </section>
 
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(isset($_POST["deletebtn"])){
+            $deleteTime = $_POST["deleteTime"];
+            $deleteQuery = "DELETE FROM blogs WHERE time='$deleteTime'";
+            if(mysqli_query($conn, $deleteQuery)){
+                header("location: home.php");
+            } else{
+                header("Location: home.php?info=".mysqli_error($conn)."");
+            }
+        }
+    }
+?>
+
 </body>
+<script>
+    document.querySelector('#home').style.display = "none";
+</script>
 </html>
