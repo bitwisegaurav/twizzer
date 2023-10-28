@@ -9,14 +9,11 @@
             $title = $_POST['title'];
             $conn = require('first.php');
 
-            if(isset($_REQUEST['username'])){
-                $username = $_REQUEST['username'];
-                $title= $_REQUEST['title'];
-                $description= $_REQUEST['description'];
-                $insertQuery = "INSERT INTO blogs (time, username,title, description) VALUES (UNIX_TIMESTAMP(), '$username','$title', '$description')";
-                mysqli_query($conn, $insertQuery);
-                header("Location:createBlog.php?info=added");
-                exit();
+
+            $insertQuery = "INSERT INTO blogs (time, username,title, description) VALUES (UNIX_TIMESTAMP(), '$username','$title', '$description')";
+            mysqli_query($conn, $insertQuery);
+            header("Location:createBlog.php?info=added");
+            exit();
             }
 
            
@@ -24,7 +21,7 @@
                 $msg = "Error creating blog" . mysqli_error($conn);
             }
         }
-    }
+    
 
 ?>
 
