@@ -25,7 +25,7 @@
     }
 
     $blogstableName = 'blogs';
-    $blogstablesql = "CREATE TABLE IF NOT EXISTS {$blogstableName} (time int, username varchar(40), description text, likes int, dislikes int)";
+    $blogstablesql = "CREATE TABLE IF NOT EXISTS {$blogstableName} (time int, username varchar(40),title varchar(225), description text, likes int, dislikes int)";
     
     if(!mysqli_query($conn, $blogstablesql)){
         die('Table is not created. Error'. mysqli_connect_error());

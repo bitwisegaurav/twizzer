@@ -6,16 +6,20 @@
         if (isset($_POST['username']) && isset($_POST['description'])){
             $username = $_POST['username'];
             $description = $_POST['description'];
-
+            $title = $_POST['title'];
             $conn = require('first.php');
 
-            $insertQuery = "INSERT INTO blogs (time, username, description) VALUES (UNIX_TIMESTAMP(), '$username', '$description')";
-
-            if(mysqli_query($conn, $insertQuery)){
-                $blogsvalue = mysqli_query($conn, "SELECT blogs FROM users WHERE username = '$username'");
-                $updateQuery = "UPDATE users SET blogs = '$blogsvalue' WHERE username = '$username'";
-                $msg = "Blog created successfully";
+            if(isset($_REQUEST['username'])){
+                $username = $_REQUEST['username'];
+                $title= $_REQUEST['title'];
+                $description= $_REQUEST['description'];
+                $insertQuery = "INSERT INTO blogs (time, username,title, description) VALUES (UNIX_TIMESTAMP(), '$username','$title', '$description')";
+                mysqli_query($conn, $insertQuery);
+                header("Location:createBlog.php?info=added");
+                exit();
             }
+
+           
             else{
                 $msg = "Error creating blog" . mysqli_error($conn);
             }
@@ -122,12 +126,19 @@
     <section>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Create Blog</h1>
-            <?php echo $msg ?>
+            <?php 
+            if(isset($_REQUEST['info'])){
+                if($_REQUEST['info']=="added")
+                 echo "Blog Created Successfully!! ";
+            }
+            ?>
             <div class="input-group">
                 <label for="description">Description :</label>
-                <textarea name="description" placeholder="Enter your username" required></textarea>
+                <input type="text" name="username" id="" placeholder="Enter your username">
+                <input type="text" name="title" id="" placeholder="Enter the title for your blog">
+                <textarea name="description" placeholder="Enter your blog title" required></textarea>
             </div>
-            <button type="submit" name="createblog">Submit</button>
+            <button type="submit" name="created">Submit</button>
         </form>
     </section>
 </body>
