@@ -65,7 +65,7 @@
         $followmsg = "Unfollow";
 
     $editBtn = '';
-    if($otherusername == $_SESSION["username"]){
+    if(!$otherusername || ($otherusername && $otherusername == $selfUsername)){
         $followBtn = 'style="display: none;"';
         $editBtn = '<form method="post" action'. $_SERVER["PHP_SELF"] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
         
@@ -98,37 +98,39 @@
         }
         else if(isset($_POST["followButton"])){
             $isFollowed = $_POST["isFollowed"] != "Follow";
+            $touser = $_POST["touser"];
+            $fromuser = $_POST["fromuser"];
             
-            if($isFollowed){
-        //         $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$selfUsername', '$otherusername')";
-        //         $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$otherusername'";
-        //         $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$selfUsername'";
-                header('location:profile.php?username='. $_REQUEST["username"]);
-                exit();
+            if(!$isFollowed && $fromuser != $touser){
+                $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$fromuser', '$touser')";
+                $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$touser'";
+                $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$fromuser'";
+                // header('location:profile.php?username='. $fromuser);
+                // exit();
             } else{
-        //         $followquery = "DELETE FROM followers WHERE fromuser =  '$selfUsername' AND touser = '$otherusername'";
-        //         $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$otherusername'";
-        //         $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$selfUsername'";
-                header('location:profile.php?username='. $_REQUEST["username"]);
-                exit();
+                $followquery = "DELETE FROM followers WHERE fromuser =  '$fromuser' AND touser = '$touser'";
+                $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$touser'";
+                $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$fromuser'";
+                // header('location:profile.php?username='. $touser);
+                // exit();
             }
             
-        //     $followresult = mysqli_query($conn, $followquery);
-        //     $updateFollowersResult = mysqli_query($conn, $updateFollowers);
-        //     $updateFollowingResult = mysqli_query($conn, $updateFollowing);
-        //     if($followresult && $updateFollowersResult && $updateFollowingResult){
-        //         header("location: profile.php?username='$otherusername'");
-        //         exit();
-        //     } 
-        //     else {
-        //         header("location: profile.php?username=$otherusername&info=".mysqli_error($conn)."");
-        //     }
+            $followresult = mysqli_query($conn, $followquery);
+            $updateFollowersResult = mysqli_query($conn, $updateFollowers);
+            $updateFollowingResult = mysqli_query($conn, $updateFollowing);
+            if($followresult && $updateFollowersResult && $updateFollowingResult){
+                header("location: profile.php?username=".$touser);
+                exit();
+            } 
+            else {
+                header("location: profile.php?username=".$touser."&info=".mysqli_error($conn)."");
+            }
 
-            header('location:profile.php?username=bitwisegaurav');
-            exit();
+            // header('location:profile.php?username=bitwisegaurav');
+            // exit();
         }
 
-        header('location:profile.php?username=Ruqayys');
+        // header('location:profile.php?username=Ruqayys');
     }
 ?>
 
@@ -168,6 +170,8 @@
             </div>
             <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" <?php echo $followBtn ?> class="followBtn">
                 <input type="text" name="isFollowed" value="<?php echo $followmsg ?>" readonly style="display:none;">
+                <input type="text" name="touser" value="<?php echo $otherusername ?>" readonly style="display:none;">
+                <input type="text" name="fromuser" value="<?php echo $selfUsername ?>" readonly style="display:none;">
                 <button type="submit" name="followButton" id="followButton">
                     <?php echo $followmsg; ?>
                 </button>
