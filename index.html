@@ -19,14 +19,19 @@
         </header>
         <main>
             <article>
-                <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
+                <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
                 <div>
                     <p>Gaurav Mishra @BitwiseGaurav</p>
                     <p class="desc">Bitwisegaurav is a highly skilled full stack developer with a wide range of expertise in web development and programming. With a strong foundation in essential web technologies such as HTML, CSS, and JavaScript, Bitwisegaurav has built a reputation for delivering innovative and functional web solutions.</p>
+                    <div class="voteBox">
+                        <button class="upvote">⬆</button>
+                        <span class="votes">0</span>
+                        <button class="downvote">⬇</button>
+                    </div>
                 </div>
             </article>
             <article>
-                <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
+                <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
                 <div>
                     <p>Ruqqya @virtual-bugg</p>
                     <p class="desc">Virtual-Bugg, the programmer, often confuses algorithms with algebra and believes that debugging involves a magnifying glass. Their code resembles a mystery novel, full of plot twists. But hey, at least every bug they create has a good story to tell!</p>
@@ -34,6 +39,50 @@
             </article>
         </main>
     </section>
-
 </body>
+<script>
+    const upvote = document.querySelector('.upvote');
+    const downvote = document.querySelector('.downvote');
+    const votes = document.querySelector('.votes');
+    let voteCount = Number(votes.textContent);
+    let clicked = "";
+    upvote.addEventListener('click', () => {
+        if(clicked === ""){
+            clicked = "up";
+            upvote.style.color = "orange";
+            voteCount++;
+        }
+        else if(clicked === "up"){
+            clicked = "";
+            upvote.style.color = "black";
+            voteCount--;
+        }
+        else if(clicked === "down"){
+            clicked = "up";
+            upvote.style.color = "orange";
+            downvote.style.color = "black";
+            voteCount++;
+        }
+        votes.textContent = voteCount;
+    });
+    downvote.addEventListener('click', () => {
+        if(clicked === ""){
+            voteCount--;
+            clicked = "down";
+            downvote.style.color = "orange";
+        }
+        else if(clicked === "up"){
+            voteCount--;
+            clicked = "down";
+            upvote.style.color = "black";
+            downvote.style.color = "orange";
+        }
+        else if(clicked === "down"){
+            clicked = "";
+            downvote.style.color = "black";
+            voteCount++;
+        }
+        votes.textContent = voteCount;
+    });
+</script>
 </html>

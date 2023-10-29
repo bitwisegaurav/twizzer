@@ -158,6 +158,12 @@ a{
   transition: background-color 0.3s;
 }
 
+.voteBox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media screen and (max-width: 900px) {
     section{
         margin: 0;
