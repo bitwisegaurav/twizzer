@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $followBtn = "";
+
     if(isset($_REQUEST['username'])){
         $username = $_REQUEST['username'];
     }
@@ -53,6 +55,60 @@
         $datejoined = trim($datejoined);
     }
 
+    $selfUsername = $_SESSION["username"];
+
+    $checkFollowQuery = "SELECT * FROM followers WHERE fromuser = '$selfUsername' AND touser = '$username'";
+
+    $checkFollowResult = mysqli_query($conn, $checkFollowQuery);
+    $followmsg = "Follow";
+    if(mysqli_fetch_assoc($checkFollowResult) > 0)
+        $followmsg = "Unfollow";
+
+    $editBtn = '';
+    if($username == $_SESSION["username"]){
+        $followBtn = 'style="display: none;"';
+        $editBtn = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
+        
+        <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
+        
+        <button type="button" name="editbtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Edit</button>
+        
+        <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
+        </form>';
+    }
+?>
+
+<?php 
+    $selfUsername = $_SESSION["username"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(!$selfUsername){
+            header('location: login.php');
+        }
+        else if(isset($_POST["followButton"]) && $selfUsername != $username){
+            $isFollowed = $_POST["isFollowed"] != "Follow";
+            
+            if($isFollowed){
+                $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$selfUsername', '$username')";
+                $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$username'";
+                $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$selfUsername'";
+            } else{
+                $followquery = "DELETE FROM followers WHERE fromuser =  '$selfUsername' AND touser = '$username'";
+                $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$username'";
+                $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$selfUsername'";
+            }
+            
+            $followresult = mysqli_query($conn, $followquery);
+            $updateFollowersResult = mysqli_query($conn, $updateFollowers);
+            $updateFollowingResult = mysqli_query($conn, $updateFollowing);
+            if($followresult && $updateFollowersResult && $updateFollowingResult){
+                header("location: " . $_SERVER['REQUEST_URI']);
+                exit();
+            } 
+            else {
+                header("location: profile.php?username=$selfUsername&info=".mysqli_error($conn)."");
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -66,9 +122,14 @@
 <body>
     <section>
         <?php echo require('header.php') ?>
+        <?php
+            if($_REQUEST["info"]){
+                echo $_REQUEST["info"];
+            }
+        ?>
         
         <main>
-            <div id="profile">
+            <div id="profileInfo">
                 <div class="left">
                     <div class="profile-img">
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile picture">
@@ -84,6 +145,12 @@
                     <p>Joined on : <?php echo $datejoined ?> ago</p>
                 </div>
             </div>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" <?php echo $followBtn ?> class="followBtn">
+                <input type="text" name="isFollowed" value="<?php echo $followmsg; ?>" readonly style="display:none;">
+                <button type="submit" name="followButton" id="followbtn">
+                    <?php echo $followmsg; ?>
+                </button>
+            </form>
         </main>
         <div id="blogs">
             <h2>Blogs</h2>
@@ -100,14 +167,17 @@
 
                     $data .= '
                     <article>
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile">
+                        <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
                         <div>
                             <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
+                            
                         </div>
                     </article>
                     ';
                 }
+
+                if($data == "") $data = '<h1 style="color: #916539; text-align:center; margin-top: 10%;font-size: 200%;">No Blogs available</h1>';
 
                 echo $data;
             ?>
@@ -119,6 +189,9 @@
     const blogs = document.querySelectorAll('#blogs article');
     const blogsCount = document.querySelector('#blogsCount');
     blogsCount.innerHTML = `Blogs : ${blogs.length}`;
-    document.querySelector('#profile').style.display = "none";
+    window.addEventListener("DOMContentLoaded", ()=>{
+        document.getElementById('profile').style.display = "none";
+    })
+    const followbtn = document.getElementById("followbtn");
 </script>
 </html>
