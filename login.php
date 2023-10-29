@@ -8,14 +8,21 @@
 
             $conn = require('first.php');
 
-            $checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = '$username' && password = '$password'";
+            $checkUserQuery = "SELECT * FROM users WHERE username = '$username'";
 
             $result = mysqli_query($conn, $checkUserQuery);
 
-            if($result > 0){
-                $_SESSION["username"] = $username;
-                $_SESSION["password"] = $password;
-                header('location: home.php');
+            if(mysqli_num_rows($result) > 0){
+                $row = mysqli_fetch_assoc($result);
+                $passwordHash = $row['password'];
+
+                if($password == $passwordHash){
+                    $_SESSION["username"] = $username;
+                    $_SESSION["password"] = $password;
+                    header('location: home.php');
+                } else {
+                    header('location: login.php?check=wrong');
+                }
             }
             else{
                 header('location: signup.php');
@@ -126,6 +133,10 @@
     <section>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <h1>Login</h1>
+            <?php
+                if($_REQUEST["check"] == "wrong")
+                    echo "Password is wrong";
+            ?>
             <div class="input-group">
                 <label for="username">Username :</label>
                 <input type="text" name="username" placeholder="Enter your username" required/>

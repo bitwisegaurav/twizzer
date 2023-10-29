@@ -48,7 +48,7 @@
                     <article>
                         <a href="profile.php?username='.$user_name.'"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
                         <div style="width: 100%">
-                            <a href="profile.php?username='.$user_name.'" style="text-decoration: none;"><p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p></a>
+                            <a href="profile.php?username='.$user_name.'" style="text-decoration: none;margin:0;"><p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p></a>
                             <p class="desc">'. $row["description"] .'</p>
                         '. $editBtnDiv .'</div>
                     </article>

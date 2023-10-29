@@ -30,6 +30,13 @@
     if(!mysqli_query($conn, $blogstablesql)){
         die('Table is not created. Error'. mysqli_connect_error());
     }
+
+    $followerstablename = 'followers';
+    $followerstablesql = "CREATE TABLE IF NOT EXISTS {$followerstablename} (time int, fromuser varchar(40), touser varchar(40))";
+    
+    if(!mysqli_query($conn, $followerstablesql)){
+        die('Table is not created. Error'. mysqli_connect_error());
+    }
     
     return $conn;
 ?>
