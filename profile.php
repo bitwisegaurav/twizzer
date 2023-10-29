@@ -160,9 +160,9 @@
                 </div>
                 <div class="about">
                     <p>Name : <?php echo $name ?></p>
-                    <p>Followers : <?php echo $followers ?></p>
+                    <p><a href="followers.php?page=followers&username=<?php echo $otherusername?>" >Followers : <?php echo $followers ?></a></p>
                     <p>About : <?php echo $about ?></p>
-                    <p>Following : <?php echo $following ?></p>
+                    <p><a href="followers.php?page=following&username=<?php echo $otherusername?>" >Following : <?php echo $following ?></a></p>
                     <p id="blogsCount">Blogs : <?php echo $blogs ?></p>
                     <p>Joined on : <?php echo $datejoined ?> ago</p>
                 </div>

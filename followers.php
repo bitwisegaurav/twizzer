@@ -1,3 +1,46 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['username'])){
+        header('location: login.php');
+        exit();
+    }
+    
+    $selfUsername = $_REQUEST["username"];
+    $followtxt = $_REQUEST["page"];
+    $data = "";
+
+    $conn = require('first.php');
+    $isFollowers = $followtxt == "following";
+
+    // check the text in followtxt if followers or following and execute that query
+    if($isFollowers){
+        $fetchfollowersquery = "SELECT touser FROM followers WHERE fromuser = '$selfUsername'";
+    } else {
+        $fetchfollowersquery = "SELECT fromuser FROM followers WHERE touser = '$selfUsername'";
+    }
+    $result = mysqli_query($conn, $fetchfollowersquery);
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_assoc($result)){
+            // fetch the names from the users table 
+            if($isFollowers) $followersusername = $row["touser"];
+            else $followersusername = $row["fromuser"];
+            $fetchuserquery = "SELECT name FROM users WHERE username = '$followersusername'";
+            $result2 = mysqli_query($conn, $fetchuserquery);
+            if(mysqli_num_rows($result2) > 0){
+                $row2 = mysqli_fetch_assoc($result2);
+                $followersname = $row2["name"];
+                $data .= '<div class="user-profile">
+                            <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 1" />
+                            <h2>'.$followersname.'</h2>
+                            <p>@'.$followersusername.'</p>
+                            <a href="profile.php?username='.$followersusername.'">View Profile</a>
+                        </div>';
+            }
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +72,7 @@
             background-color: #fff;
             border-radius: 10px; 
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         /* div Styles */
@@ -99,15 +143,16 @@
 
         .user-profiles{
             display: flex;
-            justify-content: space-around;
+            /* justify-content: space-around; */
+            padding: 1rem 2rem;
             flex-wrap: wrap;
+            gap: 2rem;
         }
 
         .user-profile {
             border: 1px solid #ccc;
             width: 12rem;
             border-radius: 5px;
-            margin: 1rem;
             padding: 10px;
             gap: 10px;
             display: flex;
@@ -148,76 +193,51 @@
 <body>
     <section>
         <div class="searchBox">
-            <h1>Followers</h1>
+            <h1><?php
+                    echo ucfirst($followtxt);
+            ?></h1>
             <div class="input-group">
                 <div class="input">
                     <label for="username">Search by username :</label>
                     <input type="text" name="username" placeholder="Enter username" />
                 </div>
-                <button type="submit">Search</button>
+                <button>Search</button>
             </div>
         </div>
         <div class="searchResults">
             <div class="usersBox">
                 <div class="user-profiles">
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 1" />
-                        <h2>User 1</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
+                    <?php echo $data ?>
                 </div>
             </div>
         </div>
     </section>
 </body>
+<script>
+    const searchBtn = document.querySelector(".input-group button");
+    const searchInput = document.querySelector(".input-group .input input");
+    const usersBox = document.querySelector(".usersBox");
+    const userProfiles = document.querySelectorAll(".user-profile");
+
+    searchBtn.addEventListener("click", searchUsername);
+    searchInput.addEventListener("keypress", (e)=>{
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchUsername();
+        }
+    });
+
+    function searchUsername() {
+        const searchValue = searchInput.value.toLowerCase();
+        userProfiles.forEach(userProfile => {
+            const txt = userProfile.querySelector("p").textContent;
+            const username = txt.split("@")[1].toLowerCase();
+            if(username.includes(searchValue)){
+                userProfile.style.display = "flex";
+            } else {
+                userProfile.style.display = "none";
+            }
+        });
+    }
+</script>
 </html>
