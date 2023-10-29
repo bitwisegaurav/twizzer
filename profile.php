@@ -3,11 +3,11 @@
 
     $followBtn = "";
 
-    if(isset($_REQUEST['username'])){
-        $username = $_REQUEST['username'];
+    if(isset($_REQUEST["username"])){
+        $otherusername = $_REQUEST["username"];
     }
-    else if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-        $username = $_SESSION['username'];
+    else if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
+        $otherusername = $_SESSION["username"];
     } else {
         header('location: login.php');
         exit();
@@ -15,19 +15,19 @@
 
     $conn = require('first.php');
 
-    $fetchQuery = "SELECT * FROM users WHERE username = '$username'";
+    $fetchQuery = "SELECT * FROM users WHERE username = '$otherusername'";
 
     $result = mysqli_query($conn, $fetchQuery);
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);
-        $name = $row['name'];
-        $about = $row['about'];
-        $email = $row['email'];
-        $blogs = $row['blogs'];
-        $followers = $row['followers'];
-        $following = $row['following'];
-        $dob = $row['dob'];
-        $joined = $row['joined'];
+        $name = $row["name"];
+        $about = $row["about"];
+        $email = $row["email"];
+        $blogs = $row["blogs"];
+        $followers = $row["followers"];
+        $following = $row["following"];
+        $dob = $row["dob"];
+        $joined = $row["joined"];
         $interval = date_diff(date_create($joined), date_create('now'));
 
         $datejoined = '';
@@ -57,7 +57,7 @@
 
     $selfUsername = $_SESSION["username"];
 
-    $checkFollowQuery = "SELECT * FROM followers WHERE fromuser = '$selfUsername' AND touser = '$username'";
+    $checkFollowQuery = "SELECT * FROM followers WHERE fromuser = '$selfUsername' AND touser = '$otherusername'";
 
     $checkFollowResult = mysqli_query($conn, $checkFollowQuery);
     $followmsg = "Follow";
@@ -65,9 +65,9 @@
         $followmsg = "Unfollow";
 
     $editBtn = '';
-    if($username == $_SESSION["username"]){
+    if($otherusername == $_SESSION["username"]){
         $followBtn = 'style="display: none;"';
-        $editBtn = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
+        $editBtn = '<form method="post" action'. $_SERVER["PHP_SELF"] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
         
         <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
         
@@ -76,38 +76,59 @@
         <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
         </form>';
     }
-?>
-
-<?php 
+    
     $selfUsername = $_SESSION["username"];
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // header('location:profile.php?username=Ruqayys');
+
+
+        // if(isset($_POST["deletebtn"])){
+        //     $deleteTime = $_POST["deleteTime"];
+        //     $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
+        //     $deleteResult = mysqli_query($conn, $deleteQuery);
+        //     if($deleteResult){
+        //         header("location: profile.php?username=$otherusername");
+        //         exit();
+        //     } else {
+        //         header("location: profile.php?username=$otherusername&info=".mysqli_error($conn)."");
+        //     }
+        // }
         if(!$selfUsername){
             header('location: login.php');
         }
-        else if(isset($_POST["followButton"]) && $selfUsername != $username){
+        else if(isset($_POST["followButton"])){
             $isFollowed = $_POST["isFollowed"] != "Follow";
             
             if($isFollowed){
-                $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$selfUsername', '$username')";
-                $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$username'";
-                $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$selfUsername'";
+        //         $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$selfUsername', '$otherusername')";
+        //         $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$otherusername'";
+        //         $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$selfUsername'";
+                header('location:profile.php?username='. $_REQUEST["username"]);
+                exit();
             } else{
-                $followquery = "DELETE FROM followers WHERE fromuser =  '$selfUsername' AND touser = '$username'";
-                $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$username'";
-                $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$selfUsername'";
+        //         $followquery = "DELETE FROM followers WHERE fromuser =  '$selfUsername' AND touser = '$otherusername'";
+        //         $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$otherusername'";
+        //         $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$selfUsername'";
+                header('location:profile.php?username='. $_REQUEST["username"]);
+                exit();
             }
             
-            $followresult = mysqli_query($conn, $followquery);
-            $updateFollowersResult = mysqli_query($conn, $updateFollowers);
-            $updateFollowingResult = mysqli_query($conn, $updateFollowing);
-            if($followresult && $updateFollowersResult && $updateFollowingResult){
-                header("location: " . $_SERVER['REQUEST_URI']);
-                exit();
-            } 
-            else {
-                header("location: profile.php?username=$selfUsername&info=".mysqli_error($conn)."");
-            }
+        //     $followresult = mysqli_query($conn, $followquery);
+        //     $updateFollowersResult = mysqli_query($conn, $updateFollowers);
+        //     $updateFollowingResult = mysqli_query($conn, $updateFollowing);
+        //     if($followresult && $updateFollowersResult && $updateFollowingResult){
+        //         header("location: profile.php?username='$otherusername'");
+        //         exit();
+        //     } 
+        //     else {
+        //         header("location: profile.php?username=$otherusername&info=".mysqli_error($conn)."");
+        //     }
+
+            header('location:profile.php?username=bitwisegaurav');
+            exit();
         }
+
+        header('location:profile.php?username=Ruqayys');
     }
 ?>
 
@@ -134,7 +155,7 @@
                     <div class="profile-img">
                         <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile picture">
                     </div>
-                    <p>@<?php echo $username ?></p>
+                    <p>@<?php echo $otherusername ?></p>
                 </div>
                 <div class="about">
                     <p>Name : <?php echo $name ?></p>
@@ -145,9 +166,9 @@
                     <p>Joined on : <?php echo $datejoined ?> ago</p>
                 </div>
             </div>
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" <?php echo $followBtn ?> class="followBtn">
-                <input type="text" name="isFollowed" value="<?php echo $followmsg; ?>" readonly style="display:none;">
-                <button type="submit" name="followButton" id="followbtn">
+            <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" <?php echo $followBtn ?> class="followBtn">
+                <input type="text" name="isFollowed" value="<?php echo $followmsg ?>" readonly style="display:none;">
+                <button type="submit" name="followButton" id="followButton">
                     <?php echo $followmsg; ?>
                 </button>
             </form>
@@ -157,7 +178,7 @@
             <?php 
                 $conn = require('first.php');
 
-                $fetchQuery = "SELECT * FROM blogs WHERE username = '$username' ORDER BY time DESC";
+                $fetchQuery = "SELECT * FROM blogs WHERE username = '$otherusername' ORDER BY time DESC";
 
                 $data = "";
 
