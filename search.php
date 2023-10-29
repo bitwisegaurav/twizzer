@@ -47,12 +47,6 @@
         
         <div class="usersBox">
             <div class="user-profiles">
-                <!-- <div class="user-profile">
-                    <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 1" />
-                    <h2>User 1</h2>
-                    <p>@user123</p>
-                    <a href="#">View Profile</a>
-                </div> -->
                 <?php echo $data ?>
             </div>
         </div>
