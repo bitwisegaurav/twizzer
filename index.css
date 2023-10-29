@@ -57,15 +57,26 @@ article {
     padding: 20px;
 }
 
-article img {
+article a{
     border-radius: 50%;
-    height: 50px;
-    margin-right: 20px;
+  height: 50px;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+article a img {
+    border-radius: 50%;
+    height: 100%;
 }
 
 p {
     margin-top: 5px;
     color: #666666;
+}
+
+a{
+    text-decoration: none;
+    color: #ff7f00;
 }
 
 .desc {
@@ -131,6 +142,20 @@ p {
     /* border: 2px solid green; */
     color: #555;
     font-size: 120%;
+}
+
+.followBtn{
+    padding: 1rem 2rem 0;
+}
+.followBtn button{
+  padding: 10px 20px;
+  background-color: #ff7f00;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
 @media screen and (max-width: 900px) {
