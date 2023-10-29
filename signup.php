@@ -4,7 +4,7 @@
     $msg = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (isset($_POST['username']) && isset($_POST['name']) && isset($_POST['about']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['dob'])){
-            $username = $_POST['username'];
+            $username = strtolower($_POST['username']);
             $name = $_POST['name'];
             $about = $_POST['about'];
             $email = $_POST['email'];
