@@ -82,6 +82,11 @@ p {
     color: #666666;
 }
 
+a{
+    text-decoration: none;
+    color: #ff7f00;
+}
+
 .desc {
     color: #333;
 }
