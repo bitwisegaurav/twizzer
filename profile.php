@@ -2,6 +2,7 @@
     session_start();
 
     $followBtn = "";
+    $selfUsername = $_SESSION["username"];
 
     if(isset($_REQUEST["username"])){
         $otherusername = $_REQUEST["username"];
@@ -16,7 +17,7 @@
     $conn = require('first.php');
 
     $fetchQuery = "SELECT * FROM users WHERE username = '$otherusername'";
-
+    
     $result = mysqli_query($conn, $fetchQuery);
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);
@@ -54,8 +55,6 @@
 
         $datejoined = trim($datejoined);
     }
-
-    $selfUsername = $_SESSION["username"];
 
     $checkFollowQuery = "SELECT * FROM followers WHERE fromuser = '$selfUsername' AND touser = '$otherusername'";
 

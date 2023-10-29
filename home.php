@@ -78,5 +78,11 @@
 </body>
 <script>
     document.querySelector('#home').style.display = "none";
+    document.querySelector('#logout').style.display = "none";
 </script>
 </html>
+
+<?php 
+require('dataUpdate.php');
+updateData();
+?>

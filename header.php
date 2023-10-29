@@ -14,6 +14,7 @@
                     <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Logo 2">
                 </a>
                 <a href="home.php" id="home" style="width: 80px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">Explore</a>
+                <a href="sessiondestroy.php" id="logout" style="width: 80px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">Log Out</a>
             </div>
         </header>';
 
