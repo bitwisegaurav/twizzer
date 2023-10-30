@@ -1,21 +1,22 @@
 <?php
     session_start();
 
-    $followBtn = "";
-    $selfUsername = $_SESSION["username"];
+    $followBtn = ""; // store the display none property if followbtn should not be visible
+    $selfUsername = $_SESSION["username"]; // username of the user using website
 
     if(isset($_REQUEST["username"])){
-        $otherusername = $_REQUEST["username"];
+        $otherusername = $_REQUEST["username"]; // username of the user whose profile is visiting
     }
     else if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
-        $otherusername = $_SESSION["username"];
+        $otherusername = $_SESSION["username"]; // username of the user if our user visit their own profile
     } else {
-        header('location: login.php');
+        header('location: login.php'); // asks to log in if user is not logged in
         exit();
     }
 
-    $conn = require('first.php');
+    $conn = require('first.php'); // connection to the database
 
+    // fetching data for username whose profile is visiting
     $fetchQuery = "SELECT * FROM users WHERE username = '$otherusername'";
     
     $result = mysqli_query($conn, $fetchQuery);
@@ -29,6 +30,7 @@
         $following = $row["following"];
         $dob = $row["dob"];
         $joined = $row["joined"];
+        // get the joined time
         $interval = date_diff(date_create($joined), date_create('now'));
 
         $datejoined = '';
@@ -56,31 +58,19 @@
         $datejoined = trim($datejoined);
     }
 
+    // check if the user is already following the other user
     $checkFollowQuery = "SELECT * FROM followers WHERE fromuser = '$selfUsername' AND touser = '$otherusername'";
 
     $checkFollowResult = mysqli_query($conn, $checkFollowQuery);
-    $followmsg = "Follow";
+    $followmsg = "Follow"; // default msg for not following
     if(mysqli_fetch_assoc($checkFollowResult) > 0)
-        $followmsg = "Unfollow";
+        $followmsg = "Unfollow"; // changed if user follows the other user
 
-    $editBtn = '';
-    if(!$otherusername || ($otherusername && $otherusername == $selfUsername)){
+    if($otherusername === $selfUsername){ // checks if user is visiting his own profile
         $followBtn = 'style="display: none;"';
-        $editBtn = '<form method="post" action'. $_SERVER["PHP_SELF"] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
-        
-        <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
-        
-        <button type="button" name="editbtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Edit</button>
-        
-        <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
-        </form>';
     }
     
-    $selfUsername = $_SESSION["username"];
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // header('location:profile.php?username=Ruqayys');
-
-
         // if(isset($_POST["deletebtn"])){
         //     $deleteTime = $_POST["deleteTime"];
         //     $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
@@ -104,14 +94,10 @@
                 $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$fromuser', '$touser')";
                 $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$touser'";
                 $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$fromuser'";
-                // header('location:profile.php?username='. $fromuser);
-                // exit();
             } else{
                 $followquery = "DELETE FROM followers WHERE fromuser =  '$fromuser' AND touser = '$touser'";
                 $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$touser'";
                 $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$fromuser'";
-                // header('location:profile.php?username='. $touser);
-                // exit();
             }
             
             $followresult = mysqli_query($conn, $followquery);
@@ -124,12 +110,7 @@
             else {
                 header("location: profile.php?username=".$touser."&info=".mysqli_error($conn)."");
             }
-
-            // header('location:profile.php?username=bitwisegaurav');
-            // exit();
         }
-
-        // header('location:profile.php?username=Ruqayys');
     }
 ?>
 
@@ -184,10 +165,21 @@
                 $fetchQuery = "SELECT * FROM blogs WHERE username = '$otherusername' ORDER BY time DESC";
 
                 $data = "";
+                $editBtn = ''; // no edit and delete will be shown by default
 
                 $result = mysqli_query($conn, $fetchQuery);
                 
                 while ($row = mysqli_fetch_assoc($result)) {
+
+                    if($otherusername === $selfUsername){ // checks if user is visiting his own profile
+                        $editBtn = '<form method="post" action'. $_SERVER["PHP_SELF"] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
+                        
+                        <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
+                        
+                        <button type="button" name="editbtn" style="padding: 5px 8px; font-size: 80%;">Edit</button>
+                        <button type="submit" name="deletebtn" style="padding: 5px 8px; font-size: 80%;">Delete</button>
+                        </form>';
+                    }
 
                     $data .= '
                     <article>
@@ -195,7 +187,15 @@
                         <div>
                             <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
-                            
+                            <div class="bottom">
+                                <div class="voteBox">
+                                    <input type="text" value="" readonly style="display:none;"/>
+                                    <input type="number" value="'.$row["time"].'" readonly style="display:none;"/>
+                                    <button class="upvote">⬆</button>
+                                    <span class="votes">0</span>
+                                    <button class="downvote">⬇</button>
+                                </div>
+                            '. $editBtn .'</div>
                         </div>
                     </article>
                     ';

@@ -14,9 +14,9 @@
 
     // check the text in followtxt if followers or following and execute that query
     if($isFollowers){
-        $fetchfollowersquery = "SELECT touser FROM followers WHERE fromuser = '$selfUsername'";
+        $fetchfollowersquery = "SELECT touser FROM followers WHERE fromuser = '$selfUsername' ORDER BY touser";
     } else {
-        $fetchfollowersquery = "SELECT fromuser FROM followers WHERE touser = '$selfUsername'";
+        $fetchfollowersquery = "SELECT fromuser FROM followers WHERE touser = '$selfUsername' ORDER BY fromuser";
     }
     $result = mysqli_query($conn, $fetchfollowersquery);
     if(mysqli_num_rows($result) > 0){

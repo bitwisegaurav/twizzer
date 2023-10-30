@@ -40,8 +40,8 @@
                     }
                     if($username == $user_name) $editBtnDiv = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="">
                     <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
-                    <button type="button" name="editbtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Edit</button>
-                    <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
+                    <button type="button" name="editbtn" style="padding: 5px 8px; font-size: 80%;">Edit</button>
+                    <button type="submit" name="deletebtn" style="padding: 5px 8px; font-size: 80%;">Delete</button>
                     </form>';
 
                     $data .= '

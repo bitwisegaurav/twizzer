@@ -5,6 +5,7 @@
             $conn = require('first.php');
             $searchQuery = "SELECT * FROM users";
             if($searchUsername != '.') $searchQuery .= " WHERE username LIKE '%$searchUsername%'";
+            $searchQuery .= " ORDER BY username";
             $result = mysqli_query($conn, $searchQuery);
             $data = "";
             while($row = mysqli_fetch_assoc($result)){
