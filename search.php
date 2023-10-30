@@ -33,7 +33,8 @@
 <body>
     <section>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-            <a href="home.php" class="explorebtn">Explore</a>
+            <a href="home.php" id="explore">Explore</a>
+            <a href="profile.php" id="profile">Profile</a>
             <h1>User Search</h1>
             <div class="input-group">
                 <div class="inputBox">

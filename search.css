@@ -36,10 +36,16 @@ form {
     height: 100%;
 }
 
-form > a{
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+form > #explore{
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+form > #profile{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 form > h1 {
@@ -81,7 +87,7 @@ form > h1 {
 }
 
 .input-group input:focus {
-  border: 2px solid orangered;
+  border: 2px solid #ff7f00;
 }
 
 .input-group input::placeholder {

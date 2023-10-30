@@ -172,8 +172,16 @@ button:hover {
     font-size: 120%;
 }
 
-.followBtn{
-    padding: 1rem 2rem 0;
+#bottomprofile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+#bottomprofile form{
+    display: flex;
+    align-items: center;
 }
 
 .followBtn button {
@@ -190,7 +198,6 @@ button:hover {
 .bottom{
     display: flex;
     width: 100%;
-    border: 2px solid red;
 }
 .voteBox{
     display: flex;
@@ -240,7 +247,7 @@ article div{
     .about p:nth-of-type(even){
         text-align: right;
     }
-    .followBtn {
-        text-align: center;
+    #bottomprofile {
+        justify-content: center;
     }
 }

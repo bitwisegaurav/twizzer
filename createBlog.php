@@ -55,6 +55,7 @@
 
         /* Form Styles */
         form {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -62,6 +63,18 @@
             gap: 2rem;
             padding: 2rem;
             height: 100%;
+        }
+
+        form > #explore{
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+
+        form > #profile{
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
         }
 
         form > h1{
@@ -102,7 +115,7 @@
             font-family: sans-serif;
         }
 
-        button {
+        button, a {
             padding: 10px 20px;
             background-color: #ff7f00; 
             color: #fff;
@@ -110,9 +123,10 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
 
-        button:hover {
+        button:hover, a:hover {
             background-color: #c86400;
         }
     </style>
@@ -120,6 +134,8 @@
 <body>
     <section>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+            <a href="home.php" id="explore">Explore</a>
+            <a href="profile.php" id="profile">Profile</a>
             <h1>Create Blog</h1>
             <?php 
                 if(isset($_REQUEST['info'])){
