@@ -71,17 +71,17 @@
     }
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // if(isset($_POST["deletebtn"])){
-        //     $deleteTime = $_POST["deleteTime"];
-        //     $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
-        //     $deleteResult = mysqli_query($conn, $deleteQuery);
-        //     if($deleteResult){
-        //         header("location: profile.php?username=$otherusername");
-        //         exit();
-        //     } else {
-        //         header("location: profile.php?username=$otherusername&info=".mysqli_error($conn)."");
-        //     }
-        // }
+        if(isset($_POST["deletebtn"])){
+            $deleteTime = $_POST["deleteTime"];
+            $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
+            $deleteResult = mysqli_query($conn, $deleteQuery);
+            if($deleteResult){
+                header("location: profile.php");
+                exit();
+            } else {
+                header("location: profile.php?info=".mysqli_error($conn)."");
+            }
+        }
         if(!$selfUsername){
             header('location: login.php');
         }
@@ -184,7 +184,7 @@
                     $data .= '
                     <article>
                         <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
-                        <div>
+                        <div style="width: 100%;">
                             <p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p>
                             <p class="desc">'. $row["description"] .'</p>
                             <div class="bottom">

@@ -189,6 +189,8 @@ button:hover {
 
 .bottom{
     display: flex;
+    width: 100%;
+    border: 2px solid red;
 }
 .voteBox{
     display: flex;
@@ -211,6 +213,10 @@ article form {
     flex-end; 
     gap: 1rem;
     padding-right: 1rem;
+}
+
+article div{
+    width: 100%;
 }
 
 .followBtn button:hover {

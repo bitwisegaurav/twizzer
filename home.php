@@ -74,11 +74,13 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["deletebtn"])){
             $deleteTime = $_POST["deleteTime"];
-            $deleteQuery = "DELETE FROM blogs WHERE time='$deleteTime'";
-            if(mysqli_query($conn, $deleteQuery)){
-                header("location: home.php");
-            } else{
-                header("Location: home.php?info=".mysqli_error($conn)."");
+            $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
+            $deleteResult = mysqli_query($conn, $deleteQuery);
+            if($deleteResult){
+                header("location: profile.php");
+                exit();
+            } else {
+                header("location: profile.php?info=".mysqli_error($conn)."");
             }
         }
     }
