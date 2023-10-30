@@ -87,6 +87,25 @@ a{
     color: #e57200;
 }
 
+
+button {
+    display: grid;
+    place-items: center;
+    padding: 10px 20px;
+    background-color: #ff7f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #c86400;
+}
+
 .desc {
     color: #333;
 }
@@ -168,9 +187,36 @@ a{
     transition: background-color 0.3s;
 }
 
+.bottom{
+    display: flex;
+}
+.voteBox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: max-content;
+    /* border: 2px solid red; */
+}
+
+.voteBox button{
+    padding: 5px 15px;
+}
+
+article form {
+    /* border: 2px solid green; */
+    width: 100%;
+    float:right; 
+    display:flex; 
+    justify-content: 
+    flex-end; 
+    gap: 1rem;
+    padding-right: 1rem;
+}
+
 .followBtn button:hover {
     background-color: #c86400;
 }
+
 
 @media screen and (max-width: 768px) {
     section{

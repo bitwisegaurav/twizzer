@@ -38,7 +38,7 @@
                     } else {
                         $name = "Someone";
                     }
-                    if($username == $user_name) $editBtnDiv = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="width: 100%; display:flex; justify-content: flex-end; gap: 1rem;">
+                    if($username == $user_name) $editBtnDiv = '<form method="post" action'. $_SERVER['PHP_SELF'] .' class="btnBox" style="">
                     <input type="number" name="deleteTime" value='. $row["time"].' style="display: none;"/>
                     <button type="button" name="editbtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Edit</button>
                     <button type="submit" name="deletebtn" style="padding: 5px 8px; background: orange; color: white; border: none; border-radius: 5px;">Delete</button>
@@ -50,7 +50,16 @@
                         <div style="width: 100%">
                             <a href="profile.php?username='.$user_name.'" style="text-decoration: none;margin:0;"><p><span style="color: #d26900;">'. $name .'</span> @'. $row["username"] . '</p></a>
                             <p class="desc">'. $row["description"] .'</p>
-                        '. $editBtnDiv .'</div>
+                            <div class="bottom">
+                                <div class="voteBox">
+                                    <input type="text" value="" readonly style="display:none;"/>
+                                    <input type="number" value="'.$row["time"].'" readonly style="display:none;"/>
+                                    <button class="upvote">⬆</button>
+                                    <span class="votes">0</span>
+                                    <button class="downvote">⬇</button>
+                                </div>
+                            '. $editBtnDiv .'</div>
+                        </div>
                     </article>
                     ';
                     $editBtnDiv = "";
