@@ -49,7 +49,17 @@
                 <input type="text" name="isFollowed" value="Follow" readonly style="display:none;">
                 <input type="text" name="touser" value="bitwisegaurav" readonly style="display:none;">
                 <input type="text" name="fromuser" value="bitwisegaurav" readonly style="display:none;">
-                <button type="submit" name="followButton" id="followButton">Follow</button>
+                <div id="bottomprofile" style="display: flex;align-items: center;width: 100%;gap: 1rem;">
+                    <form method="post" action="#" style="display: flex;align-items: center; padding:0;" class="followBtn">
+                        <input type="text" name="isFollowed" value="<?php echo $followmsg ?>" readonly style="display:none;">
+                        <input type="text" name="touser" value="<?php echo $otherusername ?>" readonly style="display:none;">
+                        <input type="text" name="fromuser" value="<?php echo $selfUsername ?>" readonly style="display:none;">
+                        <button type="submit" name="followButton" id="followButton">
+                            Follow
+                        </button>
+                    </form>
+                    <button><a href="#" style="color:white;">Chat</a></button>
+                </div>
             </form>
         </main>
         <div id="blogs">
