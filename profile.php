@@ -64,11 +64,12 @@ if ($otherusername === $selfUsername) { // checks if user is visiting his own pr
     $followBtn = 'display: none;';
 }
 
+// handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!$selfUsername) {
+    if (!$selfUsername) { // if user is not logged in
         header('location: login.php');
     } 
-    else if (isset($_POST["deletebtn"])) {
+    else if (isset($_POST["deletebtn"])) { // if user pressed the delete button on blog
         $deleteTime = $_POST["deleteTime"];
         $deleteQuery = "DELETE FROM blogs WHERE time = '$deleteTime'";
         $deleteResult = mysqli_query($conn, $deleteQuery);
@@ -79,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: profile.php?info=" . mysqli_error($conn) . "");
         }
     }
-    else if (isset($_POST["upvote"]) || isset($_POST["downvote"])) {
+    else if (isset($_POST["upvote"]) || isset($_POST["downvote"])) { // if user interacte with blog (like or dislike)
         $blogtime = $_POST["blogtime"];
         $votevalue = $_POST["votevalue"];
         // $value = $votevalue === "" ? 1 : 2;
@@ -97,16 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: profile.php?info=" . mysqli_error($conn));
         }
     }
-    else if (isset($_POST["followButton"])) {
+    else if (isset($_POST["followButton"])) { // for the follow button
         $isFollowed = $_POST["isFollowed"] != "Follow";
         $touser = $_POST["touser"];
         $fromuser = $_POST["fromuser"];
 
-        if (!$isFollowed && $fromuser != $touser) {
+        if (!$isFollowed && $fromuser != $touser) {  // not a follower and not view own profile
             $followquery = "INSERT INTO followers (time,fromuser, touser) VALUES (UNIX_TIMESTAMP(), '$fromuser', '$touser')";
             $updateFollowers = "UPDATE users SET followers = followers + 1 WHERE username = '$touser'";
             $updateFollowing = "UPDATE users SET following = following + 1 WHERE username = '$fromuser'";
-        } else {
+        } else { // user is a follower
             $followquery = "DELETE FROM followers WHERE fromuser =  '$fromuser' AND touser = '$touser'";
             $updateFollowers = "UPDATE users SET followers = followers - 1 WHERE username = '$touser'";
             $updateFollowing = "UPDATE users SET following = following - 1 WHERE username = '$fromuser'";
@@ -134,10 +135,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="index.css">
     <title>Blogesation</title>
 </head>
-
 <body>
     <section>
         <?php echo require('header.php') ?>
+        <!-- Error msg -->
         <?php
         if ($_REQUEST["info"]) {
             echo $_REQUEST["info"];
@@ -154,26 +155,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p>@<?php echo $otherusername ?></p>
                 </div>
                 <div class="about">
-                    <p>Name :
-                        <?php echo $name ?>
-                    </p>
-                    <p><a href="followers.php?page=followers&username=<?php echo $otherusername ?>">Followers :
-                            <?php echo $followers ?>
-                        </a></p>
-                    <p>About :
-                        <?php echo $about ?>
-                    </p>
-                    <p><a href="followers.php?page=following&username=<?php echo $otherusername ?>">Following :
-                            <?php echo $following ?>
-                        </a></p>
-                    <p id="blogsCount">Blogs :
-                        <?php echo $blogs ?>
-                    </p>
-                    <p>Joined on :
-                        <?php echo $datejoined ?> ago
-                    </p>
+                    <p>Name : <?php echo $name ?></p>
+                    <p><a href="followers.php?page=followers&username=<?php echo $otherusername ?>">Followers : <?php echo $followers ?></a></p>
+                    <p>About : <?php echo $about ?></p>
+                    <p><a href="followers.php?page=following&username=<?php echo $otherusername ?>">Following : <?php echo $following ?></a></p>
+                    <p id="blogsCount">Blogs :<?php echo $blogs ?></p>
+                    <p>Joined on : <?php echo $datejoined ?> ago</p>
                 </div>
             </div>
+            <!-- Follow and chat button -->
             <div id="bottomprofile" style="display: flex;align-items: center;width: 100%;gap: 1rem;">
                 <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" style="display: flex;align-items: center; padding:0; <?php echo $followBtn ?>" class="followBtn">
                     <input type="text" name="isFollowed" value="<?php echo $followmsg ?>" readonly style="display:none;">
@@ -191,6 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php
             $conn = require('first.php');
 
+            // Fetching user blogs
             $fetchQuery = "SELECT * FROM blogs WHERE username = '$otherusername' ORDER BY time DESC";
 
             $data = "";
@@ -198,6 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             $result = mysqli_query($conn, $fetchQuery);
 
+            // fetching data row by row from result
             while ($row = mysqli_fetch_assoc($result)) {
                 $likes = $row["likes"] ? $row["likes"] : 0;
                 $dislikes = $row["dislikes"] ? $row["dislikes"] : 0;
@@ -250,5 +242,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     })
     const followbtn = document.getElementById("followbtn");
 </script>
-
 </html>
