@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php echo $followmsg; ?>
                     </button>
                 </form>
-                <button style="<?php echo $followBtn ?>"><a href="#" style="color:white;">Chat</a></button>
+                <button style="<?php echo $followBtn ?>"><a href="chat.php?otherusername=<?=$otherusername?>" style="color:white;">Chat</a></button>
             </div>
         </main>
         <div id="blogs">

@@ -37,6 +37,12 @@
     if(!mysqli_query($conn, $followerstablesql)){
         die('Table is not created. Error'. mysqli_connect_error());
     }
+
+    $chattablename = 'chats';
+    $chatstablesql = "CREATE TABLE IF NOT EXISTS {$chattablename} (time int, fromuser varchar(40), touser varchar(40), message text)";
+    if(!mysqli_query($conn, $chatstablesql)){
+        die('Table is not created. Error'. mysqli_connect_error());
+    }
     
     return $conn;
 ?>
