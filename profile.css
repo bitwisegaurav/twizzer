@@ -219,6 +219,10 @@ a{
     width: 100%;
 }
 
+.main-data .profile-data .profile-info .user-interaction .orange-button {
+    font-size: 15px;
+}
+
 .orange-button {
     padding: 10px 20px;
     background: #ff7f00;

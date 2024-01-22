@@ -37,6 +37,7 @@
             gap: 2rem;
             padding: 2rem;
             height: 100%;
+            position: relative;
         }
 
         form > h1{
@@ -90,11 +91,33 @@
         button:hover {
             background-color: #c86400;
         }
+
+        .rounded-button {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            width: 2rem;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            display: grid;
+            place-content: center;
+            border: 1px solid #999;
+            background-color: transparent;
+            transform: rotate(180deg);
+            font-weight: bold;
+            cursor: pointer;
+            color: black;
+        }
+
+        .rounded-button:hover{
+            background-color: #eee;
+        }
     </style>
 </head>
 <body>
     <section>
         <form>
+            <button type="button" class="rounded-button">➞</button>
             <h1>Create Blog</h1>
             <div class="input-group">
                 <label for="username">Username :</label>
@@ -106,4 +129,11 @@
         </form>
     </section>
 </body>
+<script>
+    let backButton = document.querySelector('.rounded-button');
+
+    backButton.addEventListener('click', () => {
+        window.history.back();
+    })
+</script>
 </html>
