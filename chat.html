@@ -1,177 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat - Blogesation by BitwiseGaurav</title>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            background-color: #ff7f00;
-        }
-        section{
-            width: 90%;
-            height: 90vh;
-            max-width: 1200px;
-            padding: 10px;
-            border-radius: 1rem;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        }
-        header {
-            width: 100%;
-            padding: 10px 1rem;
-            background-color: #ff7f00;
-            border-radius: 1rem;
-        }
-        nav {
-            width: 100%;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        header nav .profile-pic {
-            width: 3rem;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        background-color: #ffb367;
+      }
+      main {
+        width: 90%;
+        height: 90vh;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      section {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+      }
+      header {
+        width: 100%;
+        padding: 10px 1rem;
+        background-color: #ff7f00;
+        border-radius: 1rem;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+      }
+      nav {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      header nav .rounded-button {
+            width: 2rem;
             aspect-ratio: 1;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        header nav .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        header nav .name {
+            border-radius: 10px;
+            border: 1px solid #eee;
+            background-color: transparent;
+            transform: rotate(180deg);
             font-weight: bold;
-            font-size: large;
-            color: white;
-        }
-
-        .chat-section {
-            flex: 1;
-            overflow-y: auto;
-            margin: 0 1rem;
-        }
-
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .chat-box {
-            width: 100%;
-        }
-        
-        .chat-section::-webkit-scrollbar{
-            display: none;
-        }
-        .chat-message {
-            display: inline;
-        }
-        .chat-message span {
-            display: block;
-            color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            width: max-content;
-            max-width: min(80%, 120rem);
-        }
-        .other span{
-            background-color: #007BFF;
-        }
-        .self span{
-            background-color: #0cb900;
-            float: right;
-        }
-
-        .input-box {
-            display: flex;
-            height: 2.5rem;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .input-box input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #666;
-            outline: none;
-        }
-        .input-box input:focus {
-            border: 1px solid #000;
-        }
-        .input-box button {
-            padding: 10px 20px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            /* border: 1px solid #ccc; */
-            border: none;
-            outline: none;
-            background-color: #ff7f00;
-            color: #fff;
             cursor: pointer;
-        }
-        .input-box button:hover {
-            background-color: #ce6700;
+            color: white;
+            margin-right: 2rem;
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
+        header nav .rounded-button:hover{
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+      header nav .profile-pic {
+        width: 3rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      header nav .profile-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      header nav .name {
+        font-weight: bold;
+        font-size: large;
+        color: white;
+      }
+
+      .chat-section {
+        flex: 1;
+        overflow-y: auto;
+        margin: 0 1rem;
+      }
+
+      .chat-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .chat-box {
+        width: 100%;
+      }
+
+      .chat-section::-webkit-scrollbar {
+        display: none;
+      }
+      .chat-message {
+        display: inline;
+      }
+      .chat-message span {
+        display: block;
+        color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        width: max-content;
+        max-width: min(80%, 120rem);
+      }
+      .other span {
+        background-color: #007bff;
+      }
+      .self span {
+        background-color: #0cb900;
+        float: right;
+      }
+
+      .input-box {
+        display: flex;
+        height: 2.5rem;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .input-box input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #666;
+        outline: none;
+      }
+      .input-box input:focus {
+        border: 1px solid #000;
+      }
+      .input-box button {
+        padding: 10px 20px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        /* border: 1px solid #ccc; */
+        border: none;
+        outline: none;
+        background-color: #ff7f00;
+        color: #fff;
+        cursor: pointer;
+      }
+      .input-box button:hover {
+        background-color: #ce6700;
+      }
+      .input-box .emoji-buttons{
+        background-color: transparent;
+        border: 1px solid #aaa;
+        padding: 10px;
+      }
+      .input-box .emoji-buttons:hover{
+        background-color: #eee;
+      }
     </style>
-</head>
-<body>
-    <section>
-        <header>
-            <nav>
-                <div class="profile-pic">
-                    <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile pic">
-                </div>
-                <div class="name">BitwiseGaurav</div>
-            </nav>
-        </header>
+  </head>
+  <body>
+    <main>
+      <header>
+        <nav>
+        <button type="button" class="rounded-button">➞</button>
+          <div class="profile-pic">
+            <img
+              src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+              alt="Profile pic"
+            />
+          </div>
+          <div class="name">BitwiseGaurav</div>
+        </nav>
+      </header>
+      <section>
         <div class="chat-section">
-            <div class="chat-container">
-                <div class="other chat-box">
-                    <div class="chat-message">
-                        <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
-                    </div>
-                </div>
-                <div class="self chat-box">
-                    <div class="chat-message">
-                        <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
-                    </div>
-                </div>
-                <div class="other chat-box">
-                    <div class="chat-message">
-                        <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
-                    </div>
-                </div>
-                <div class="self chat-box">
-                    <div class="chat-message">
-                        <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
-                    </div>
-                </div>
+          <div class="chat-container">
+            <div class="other chat-box">
+              <div class="chat-message">
+                <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
+              </div>
             </div>
+            <div class="self chat-box">
+              <div class="chat-message">
+                <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
+              </div>
+            </div>
+            <div class="other chat-box">
+              <div class="chat-message">
+                <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
+              </div>
+            </div>
+            <div class="self chat-box">
+              <div class="chat-message">
+                <span>Hello, welcome to Blogesation by Bitwisegaurav!</span>
+              </div>
+            </div>
+          </div>
         </div>
-        
+
         <form action="#" method="post" class="input-box">
-            <input type="text" name="otherusername" id="otherusername" style="display:none;" value="<?= $otherusername ?>">
-            <input type="text" name="msg" id="msg" placeholder="Enter your message here">
-            <button type="submit" name="send" id="send">➤</button>
+            <button type="button" class="emoji-buttons">🙂</button>
+            <button type="button" class="emoji-buttons">📎</button>
+          <input
+            type="text"📎
+            name="msg"
+            id="msg"
+            placeholder="Enter your message here"
+          />
+          <button type="submit" name="send" id="send">➤</button>
         </form>
-    </section>
-</body>
+      </section>
+    </main>
+  </body>
 </html>
