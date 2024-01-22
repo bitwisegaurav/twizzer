@@ -3,42 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="profile.css">
     <title>Blogesation</title>
+    <style>
+        .main-data .user-posts {
+            min-height: 100%;
+        }
+
+        .main-data .user-posts .posts article .profile-pic-section {
+            align-items: flex-start;
+        }
+    </style>
 </head>
 <body>
-    <section>
+    <main>
         <header>
-            <a href="index.html" class="logo">
-                <img src="https://static.vecteezy.com/system/resources/previews/003/607/702/original/bubble-chat-icon-inside-orange-circle-with-long-shadow-using-for-presentation-website-and-application-vector.jpg" alt="Logo 1">
-            </a>
-            <h2>Blogesation</h2>
-            <a href="profile.html" class="people">
-                <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Logo 2">
-            </a>
+          <nav>
+            <ul>
+              <li class="logo">
+                <a href="index.html">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/003/607/702/original/bubble-chat-icon-inside-orange-circle-with-long-shadow-using-for-presentation-website-and-application-vector.jpg"
+                    alt="Website logo"
+                  />
+                </a>
+              </li>
+              <li class="website-name">
+                <a href="index.html">Blogesation</a>
+              </li>
+              <li class="options">
+                <div class="interact">
+                  <a href="createBlog.html" class="button">+</a>
+                  <a href="search.html" class="button">🔍</a>
+                </div>
+                <div class="user">
+                  <a href="profile2.html" class="profile-image">
+                    <img
+                    src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                    alt="profile-pic"
+                  />
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
         </header>
-        <main>
-            <article>
-                <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
-                <div>
-                    <p>Gaurav Mishra @BitwiseGaurav</p>
-                    <p class="desc">Bitwisegaurav is a highly skilled full stack developer with a wide range of expertise in web development and programming. With a strong foundation in essential web technologies such as HTML, CSS, and JavaScript, Bitwisegaurav has built a reputation for delivering innovative and functional web solutions.</p>
-                    <div class="voteBox">
-                        <button class="upvote">⬆</button>
-                        <span class="votes">0</span>
-                        <button class="downvote">⬇</button>
+  
+        <section class="main-data">  
+          <section class="user-posts">
+            <div class="posts">
+              <article index="0">
+                <div class="profile-pic-section">
+                  <div class="profile-pic">
+                    <img
+                      src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                      alt="profile-pic"
+                    />
+                  </div>
+                </div>
+                <div class="user-posts-data">
+                  <div class="user-about">
+                    <span class="name">Gaurav Mishra</span>
+                    <span class="username">@BitwiseGaurav</span>
+                  </div>
+                  <div class="post">
+                    <div class="message">
+                      Bitwisegaurav is a highly skilled full stack developer with
+                      a wide range of expertise in web development and
+                      programming. With a strong foundation in essential web
+                      technologies such as HTML, CSS, and JavaScript,
+                      Bitwisegaurav has built a reputation for delivering
+                      innovative and functional web solutions.
                     </div>
+                  </div>
+                  <div class="controls">
+                    <div class="posts-vote-controls">
+                      <button type="button" class="orange-button">⬆</button>
+                      <span class="post-vote">4</span>
+                      <button type="button" class="orange-button">⬇</button>
+                    </div>
+                    <div class="owners-controls">
+                      <button type="button" class="orange-button">Edit</button>
+                      <button type="button" class="orange-button">Delete</button>
+                    </div>
+                  </div>
                 </div>
-            </article>
-            <article>
-                <a href="#"><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
-                <div>
-                    <p>Ruqqya @virtual-bugg</p>
-                    <p class="desc">Virtual-Bugg, the programmer, often confuses algorithms with algebra and believes that debugging involves a magnifying glass. Their code resembles a mystery novel, full of plot twists. But hey, at least every bug they create has a good story to tell!</p>
+              </article>
+  
+              <article index="1">
+                <div class="profile-pic-section">
+                  <div class="profile-pic">
+                    <img
+                      src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                      alt="profile-pic"
+                    />
+                  </div>
                 </div>
-            </article>
-        </main>
-    </section>
+                <div class="user-posts-data">
+                  <div class="user-about">
+                    <span class="name">Ruqayya</span>
+                    <span class="username">@Virtual-bugg</span>
+                  </div>
+                  <div class="post">
+                    <div class="message">
+                      Bitwisegaurav is a highly skilled full stack developer with
+                      a wide range of expertise in web development and
+                      programming. With a strong foundation in essential web
+                      technologies such as HTML, CSS, and JavaScript,
+                      Bitwisegaurav has built a reputation for delivering
+                      innovative and functional web solutions.
+                    </div>
+                  </div>
+                  <div class="controls">
+                    <div class="posts-vote-controls">
+                      <button type="button" class="orange-button">⬆</button>
+                      <span class="post-vote">4</span>
+                      <button type="button" class="orange-button">⬇</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </section>
+      </main>
 </body>
 <script>
     const upvote = document.querySelector('.upvote');

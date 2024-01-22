@@ -34,7 +34,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
             padding: 2rem;
             height: 100%;
         }
@@ -42,6 +42,11 @@
         form > h1{
             margin: 0;
             color: #4e3b28;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 2rem;
         }
 
         .input-group {
@@ -71,7 +76,17 @@
             color: #999;
         }
 
-        button, a {
+        .input-group a{
+            color: #ff7f00;
+            font-size: smaller;
+            text-decoration: none;
+        }
+
+        .forget:hover{
+            text-decoration: underline;
+        }
+
+        .buttons button, .buttons a {
             padding: 10px 20px;
             background-color: #ff7f00; 
             color: #fff;
@@ -79,9 +94,12 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
         }
 
-        button:hover, a:hover {
+        .buttons button:hover, .buttons a:hover {
             background-color: #c86400;
         }
     </style>
@@ -95,9 +113,12 @@
                 <input type="text" name="username" placeholder="Enter your username" />
                 <label for="password">Password :</label>
                 <input type="password" name="password" placeholder="Enter your password" />
+                <a href="#" class="forget">Forget Password</a>
             </div>
-            <button type="submit">Submit</button>
-            <a href="signup.html">Sign Up</a>
+            <div class="buttons">
+                <button type="submit">Submit</button>
+                <a href="signup.html">Sign Up</a>
+            </div>
         </form>
     </section>
 </body>

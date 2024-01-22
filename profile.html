@@ -9,7 +9,7 @@
 <body>
     <section>
         <header>
-            <a href="home.php" class="logo">
+            <a href="index.html" class="logo">
                 <img src="https://static.vecteezy.com/system/resources/previews/003/607/702/original/bubble-chat-icon-inside-orange-circle-with-long-shadow-using-for-presentation-website-and-application-vector.jpg" alt="Logo 1">
             </a>
             <h2>Blogesation</h2>
@@ -22,7 +22,7 @@
                 <a href="profile.html" class="people" id="profile" style="display: none;">
                     <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Logo 2">
                 </a>
-                <a href="home.html" id="home" style="width: 80px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">Explore</a>
+                <a href="index.html" id="home" style="width: 80px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">Explore</a>
                 <a href="login.html" id="logout" style="width: 80px; height:40px; display: grid;place-items: center;border-radius: 10px;outline: none;border: none;background: white;color: #ff7f00; text-decoration: none; cursor: pointer;">Log Out</a>
             </div>
         </header>
@@ -46,14 +46,16 @@
                 </div>
             </div>
             <form class="followBtn">
-                <input type="text" name="isFollowed" value="Follow" readonly style="display:none;">
-                <input type="text" name="touser" value="bitwisegaurav" readonly style="display:none;">
-                <input type="text" name="fromuser" value="bitwisegaurav" readonly style="display:none;">
+                <input type="text" name="isFollowed" value="Follow" readonly hidden>
+                <input type="text" name="touser" value="bitwisegaurav" readonly hidden>
+                <input type="text" name="fromuser" value="bitwisegaurav" readonly hidden>
                 <button type="submit" name="followButton" id="followButton">Follow</button>
+                <button type="submit" name="followButton" id="followButton">Chat</button>
+            </form>
             </form>
         </main>
         <div id="blogs">
-            <h2>Blogs</h2>
+            <h2>Posts</h2>
             <article>
                 <a href=""><img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="Profile"></a>
                 <div>
