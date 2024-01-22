@@ -50,22 +50,22 @@
         align-items: center;
       }
       header nav .rounded-button {
-            width: 2rem;
-            aspect-ratio: 1;
-            border-radius: 10px;
-            border: 1px solid #eee;
-            background-color: transparent;
-            transform: rotate(180deg);
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-            margin-right: 2rem;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
+        width: 2rem;
+        aspect-ratio: 1;
+        border-radius: 10px;
+        border: 1px solid #eee;
+        background-color: transparent;
+        transform: rotate(180deg);
+        font-weight: bold;
+        cursor: pointer;
+        color: white;
+        margin-right: 2rem;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
 
-        header nav .rounded-button:hover{
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+      header nav .rounded-button:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
       header nav .profile-pic {
         width: 3rem;
         aspect-ratio: 1;
@@ -154,12 +154,12 @@
       .input-box button:hover {
         background-color: #ce6700;
       }
-      .input-box .emoji-buttons{
+      .input-box .emoji-buttons {
         background-color: transparent;
         border: 1px solid #aaa;
         padding: 10px;
       }
-      .input-box .emoji-buttons:hover{
+      .input-box .emoji-buttons:hover {
         background-color: #eee;
       }
     </style>
@@ -168,7 +168,7 @@
     <main>
       <header>
         <nav>
-        <button type="button" class="rounded-button">➞</button>
+          <button type="button" class="rounded-button">➞</button>
           <div class="profile-pic">
             <img
               src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
@@ -205,10 +205,11 @@
         </div>
 
         <form action="#" method="post" class="input-box">
-            <button type="button" class="emoji-buttons">🙂</button>
-            <button type="button" class="emoji-buttons">📎</button>
+          <button type="button" class="emoji-buttons">🙂</button>
+          <button type="button" class="emoji-buttons">📎</button>
           <input
-            type="text"📎
+            type="text"
+            📎
             name="msg"
             id="msg"
             placeholder="Enter your message here"
@@ -218,4 +219,11 @@
       </section>
     </main>
   </body>
+  <script>
+    let backButton = document.querySelector(".rounded-button");
+
+    backButton.addEventListener("click", () => {
+      window.history.back();
+    });
+  </script>
 </html>
