@@ -78,9 +78,9 @@
                   </div>
                   <div class="controls">
                     <div class="posts-vote-controls">
-                      <button type="button" class="orange-button">⬆</button>
-                      <span class="post-vote">4</span>
-                      <button type="button" class="orange-button">⬇</button>
+                      <button type="button" class="orange-button upvote">⬆</button>
+                      <span class="post-vote value">4</span>
+                      <button type="button" class="orange-button downvote">⬇</button>
                     </div>
                     <div class="owners-controls">
                       <button type="button" class="orange-button">Edit</button>
@@ -116,9 +116,9 @@
                   </div>
                   <div class="controls">
                     <div class="posts-vote-controls">
-                      <button type="button" class="orange-button">⬆</button>
-                      <span class="post-vote">4</span>
-                      <button type="button" class="orange-button">⬇</button>
+                      <button type="button" class="orange-button upvote">⬆</button>
+                      <span class="post-vote value">4</span>
+                      <button type="button" class="orange-button downvote">⬇</button>
                     </div>
                   </div>
                 </div>
@@ -129,48 +129,32 @@
       </main>
 </body>
 <script>
-    const upvote = document.querySelector('.upvote');
-    const downvote = document.querySelector('.downvote');
-    const votes = document.querySelector('.votes');
-    let voteCount = Number(votes.textContent);
-    let clicked = "";
-    upvote.addEventListener('click', () => {
-        if(clicked === ""){
-            clicked = "up";
-            upvote.style.color = "orange";
-            voteCount++;
-        }
-        else if(clicked === "up"){
-            clicked = "";
-            upvote.style.color = "black";
-            voteCount--;
-        }
-        else if(clicked === "down"){
-            clicked = "up";
-            upvote.style.color = "orange";
-            downvote.style.color = "black";
-            voteCount++;
-        }
-        votes.textContent = voteCount;
+  let controlBoxes = document.querySelectorAll('.posts-vote-controls')
+
+  controlBoxes.forEach(controlBox => {
+    controlBoxes.forEach(controlBox => {
+      const upvoteButton = controlBox.querySelector('.upvote');
+      const downvoteButton = controlBox.querySelector('.downvote');
+      const valueElement = controlBox.querySelector('.value');
+
+      upvoteButton.addEventListener("click", () => {
+        if (controlBox.getAttribute("increased")) return;
+        let value = parseInt(valueElement.textContent);
+        value++;
+        valueElement.textContent = value;
+        controlBox.setAttribute("increased", true);
+        controlBox.removeAttribute("decreased");
+      });
+
+      downvoteButton.addEventListener("click", () => {
+        if (controlBox.getAttribute("decreased")) return;
+        let value = parseInt(valueElement.textContent);
+        value--;
+        valueElement.textContent = value;
+        controlBox.setAttribute("decreased", true);
+        controlBox.removeAttribute("increased");
+      });
     });
-    downvote.addEventListener('click', () => {
-        if(clicked === ""){
-            voteCount--;
-            clicked = "down";
-            downvote.style.color = "orange";
-        }
-        else if(clicked === "up"){
-            voteCount--;
-            clicked = "down";
-            upvote.style.color = "black";
-            downvote.style.color = "orange";
-        }
-        else if(clicked === "down"){
-            clicked = "";
-            downvote.style.color = "black";
-            voteCount++;
-        }
-        votes.textContent = voteCount;
-    });
+  })
 </script>
 </html>
