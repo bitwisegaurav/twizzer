@@ -1,223 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Blogesation</title>
     <style>
-        *{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ff7f00;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ff7f00;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
 
+      section {
+        position: relative;
+        flex: 1;
+        width: 100%;
+        height: calc(100vh - 3rem);
+        max-width: 1200px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* div Styles */
+      .searchBox {
+        position: sticky;
+        top: 0;
+        background-color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem 2rem 20px;
+      }
+
+      .searchBox > h1 {
+        margin: 0;
+        color: #4e3b28;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: flex-end;
+        gap: 2rem;
+        width: 100%;
+      }
+
+      .input {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .input label {
+        font-weight: bold;
+        color: #4e3b28;
+      }
+
+      .input input {
+        padding: 10px;
+        border: 1px solid #ff7f00;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .input input:focus {
+        border: 2px solid #ff7f00;
+      }
+
+      .input input::placeholder {
+        color: #999;
+      }
+
+      button,
+      a {
+        padding: 10px 20px;
+        background-color: #ff7f00;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover,
+      a:hover {
+        background-color: #c86400;
+      }
+
+      .user-profiles {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+      .user-profile {
+        border: 1px solid #ccc;
+        width: 12rem;
+        border-radius: 5px;
+        margin: 1rem;
+        padding: 10px;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .user-profile h2 {
+        margin: 0;
+      }
+
+      .user-profile p {
+        font-size: 95%;
+        color: #666;
+      }
+
+      .user-profile a {
+        font-size: 85%;
+        padding: 8px 16px;
+        text-decoration: none;
+      }
+
+      .user-profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .rounded-button {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        width: 2rem;
+        aspect-ratio: 1;
+        display: grid;
+        place-content: center;
+        border-radius: 10px;
+        border: 1px solid #999;
+        background-color: transparent;
+        transform: rotate(180deg);
+        font-weight: bold;
+        cursor: pointer;
+        color: black;
+      }
+
+      .rounded-button:hover {
+        background-color: #eee;
+      }
+
+      @media screen and (max-width: 768px) {
         section {
-            position: relative;
-            flex: 1;
-            width: 100%;
-            height: calc(100vh - 3rem);
-            max-width: 1200px;
-            background-color: #fff;
-            border-radius: 10px; 
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          height: 100%;
+          border-radius: 0;
         }
-
-        /* div Styles */
-        .searchBox {
-            position: sticky;
-            top: 0;
-            background-color: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            padding: 2rem 2rem 20px;
-        }
-
-        .searchBox > h1{
-            margin: 0;
-            color: #4e3b28;
-        }
-
-        .input-group {
-            display: flex;
-            align-items: flex-end;
-            gap: 2rem;
-            width: 100%;
-        }
-
-        .input {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%; 
-        }
-
-        .input label {
-            font-weight: bold;
-            color: #4e3b28;
-        }
-
-        .input input {
-            padding: 10px;
-            border: 1px solid #ff7f00;
-            border-radius: 5px;
-            outline: none;
-        }
-        
-        .input input:focus{
-            border: 2px solid #ff7f00; 
-        }
-
-        .input input::placeholder {
-            color: #999;
-        }
-
-        button, a {
-            padding: 10px 20px;
-            background-color: #ff7f00; 
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover, a:hover {
-            background-color: #c86400;
-        }
-
-        .user-profiles{
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .user-profile {
-            border: 1px solid #ccc;
-            width: 12rem;
-            border-radius: 5px;
-            margin: 1rem;
-            padding: 10px;
-            gap: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .user-profile h2{
-            margin: 0;
-        }
-
-        .user-profile p{
-            font-size: 95%;
-        }
-
-        .user-profile a{
-            font-size: 85%;
-            padding: 8px 16px;
-            text-decoration: none;
-        }
-
-        .user-profile img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        @media screen and (max-width: 768px) {
-            section{
-                height: 100%;
-                border-radius: 0;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <section>
-        <div class="searchBox">
-            <h1>Followers</h1>
-            <div class="input-group">
-                <div class="input">
-                    <label for="username">Search by username :</label>
-                    <input type="text" name="username" placeholder="Enter username" />
-                </div>
-                <button type="submit">Search</button>
-            </div>
+      <div class="searchBox">
+        <button type="button" class="rounded-button">➞</button>
+        <h1>Followers</h1>
+        <div class="input-group">
+          <div class="input">
+            <label for="username">Search by username :</label>
+            <input type="text" name="username" placeholder="Enter username" />
+          </div>
+          <button type="submit">Search</button>
         </div>
-        <div class="searchResults">
-            <div class="usersBox">
-                <div class="user-profiles">
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 1" />
-                        <h2>User 1</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                
-                    <div class="user-profile">
-                        <img src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png" alt="User 2" />
-                        <h2>User 2</h2>
-                        <p>@user123</p>
-                        <a href="#">View Profile</a>
-                    </div>
-                </div>
+      </div>
+      <div class="searchResults">
+        <div class="usersBox">
+          <div class="user-profiles">
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 1"
+              />
+              <h2>User 1</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
             </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+
+            <div class="user-profile">
+              <img
+                src="https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png"
+                alt="User 2"
+              />
+              <h2>User 2</h2>
+              <p>@user123</p>
+              <a href="#">View Profile</a>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-</body>
+  </body>
+  <script>
+    let backButton = document.querySelector(".rounded-button");
+
+    backButton.addEventListener("click", () => {
+      window.history.back();
+    });
+  </script>
 </html>
